@@ -53,7 +53,7 @@ setForkedRecipe(
 
 
 
-readForkedRecipeData({String? recipeID})async{
+ Future<forkedRecipe> readForkedRecipeData({String? recipeID})async{
 forkedRecipe returned=forkedRecipe();
 
  try{ 
@@ -69,7 +69,12 @@ Get.snackbar("title", returned.imgPath.toString());  // ...
 return returned;
 
 
- }catch(err){Get.snackbar("title", "readUser");}
+ }catch(err){
+  
+  Get.snackbar("title", "readUser");
+return returned;
+  
+  }
 
 }
 
@@ -77,7 +82,7 @@ return returned;
 
 
 
-readUsersForkedlRecipies({String? userID})async{
+Future<List<forkedRecipe>> readUsersForkedlRecipies({String? userID})async{
 
 List<forkedRecipe> userForkedRecipes=[];
 try{
@@ -99,7 +104,42 @@ Get.snackbar("title", element.title.toString());
 }
 return userForkedRecipes;
 }catch(err){
+return userForkedRecipes;
 
 
 }
+}
+
+
+
+
+
+
+Future<List<forkedRecipe>>  readAllforkedlRecipies()async{
+
+List<forkedRecipe> allRecipies=[];
+try{
+  await FirebaseFirestore.instance
+    .collection('forkedRecipe')
+    .get() //Future<QuerySnapshot<Map<String, dynamic>>>
+    .then((QuerySnapshot querySnapshot) {
+      
+        querySnapshot.docs.forEach((doc) {// QuerySnapshot<Object?>
+       
+allRecipies.add(forkedRecipe.fronJson(doc.data() as Map<String, dynamic>));  
+
+        });
+    });
+
+// for (var element in allRecipies) {
+// Get.snackbar("title", element.title.toString());
+// }
+return allRecipies;
+}
+catch(err){
+  
+return allRecipies;
+
+}
+
 }

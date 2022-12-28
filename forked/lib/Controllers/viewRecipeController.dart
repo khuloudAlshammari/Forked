@@ -4,7 +4,7 @@ import 'package:forked/Components/Camera.dart';
 import 'package:forked/Constants/styles.dart';
 import 'package:get/get.dart';
 
-import '../Components/SmallCardRecipeCard.dart';
+import '../Components/CardRecipeCard.dart';
 import '../Components/preparations_details.dart';
 
 class viewRecipeController extends GetxController{
@@ -62,6 +62,7 @@ update();
  ];
 
 
+
 forks=[
   Column(
     children: [
@@ -74,7 +75,7 @@ forks=[
       child: SmallCardRecipeCard(
         recipeName: "pancake",
         recipeImage: "images/6.jpg",
-        funct: () {},
+        ImageFunct: () {},
       ),
     )
         ],
@@ -88,7 +89,7 @@ forks=[
       child: SmallCardRecipeCard(
         recipeName: "pancake",
         recipeImage: "images/6.jpg",
-        funct: () {},
+        ImageFunct: () {},
       ),
     ),
     Container(
@@ -97,7 +98,7 @@ forks=[
       child: SmallCardRecipeCard(
         recipeName: "pancake",
         recipeImage: "images/6.jpg",
-        funct: () {},
+        ImageFunct: () {},
       ),
     )
         ],

@@ -1,21 +1,25 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:forked/Components/Language/Language.dart';
+import 'package:forked/Models/User.dart';
 
-import 'package:forked/Components/textField.dart';
-import 'package:forked/Controllers/languageController.dart';
-import 'package:forked/Views/CreateRecipe.dart';
-import 'package:forked/Views/ViewRecipe.dart';
-import 'package:forked/Views/khuloudTest.dart';
-import 'package:forked/Views/test.dart';
-import 'package:forked/Views/testing.dart';
 
 import 'package:get/get.dart';
 import 'package:forked/Routes/Router.dart';
-import 'package:forked/Views/RegistrationNav.dart';
+
+import 'Models/following.dart';
+import 'Models/forkedRecipe.dart';
+import 'Models/likedRecipe.dart';
+import 'Models/originalRecipie.dart';
+import 'Models/savedRecipe.dart';
 import 'firebase_options.dart';
 
-
+  user myUserData=user();
+  List<originalRecipe> userOriginalRecipies =[];
+   List<forkedRecipe> userForkedRecipeRecipies =[];
+  List<likedRecipe> usersLikedRecipies =[];
+  List<savedRecipe> userSavedRecipies =[];
+  List<following> userFollowing = [];
+  List<following> userFollowers =[];
 main()async {
 
    WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +27,8 @@ main()async {
   await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
   );
+
+
   runApp(MyApp());
 }
 
@@ -33,42 +39,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
    // Get.put(MyLocaleController());
     return GetMaterialApp(
-        initialRoute: NamedRoute.StratingPage,
-         getPages: appRoutes,
-
-//locale: Get.deviceLocale,
-     // translations: Language(),
+      initialRoute: NamedRoute.StratingPage,
+       getPages: appRoutes,
 
 
     
 
-  home:
-
-     createRecipe(
-
-  steps: [
-
-    SizedBox(),
-     SizedBox(),
-
-    SizedBox(),
-
-   ],
+        // home:Home(),
 
 
-  ingredients: [
-
-    SizedBox(),
-
-     SizedBox(),
-
-  ],
-
-   ),
-
-
-
-
+//  ),
+//  //home: ProfilEdiet(),
     );
   }
 }

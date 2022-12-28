@@ -12,7 +12,8 @@ createFollowing({required String followedUserID,required String userID}) async {
 try{
 
 
-  await db.collection('following').doc("${userID}_${followedUserID}").set({"userID":userID, "followedUserID":followedUserID});
+  await db.collection('following').doc("${userID}_$followedUserID").set({"userID":userID, "followedUserID":followedUserID});
+Get.snackbar("title", " inside createfollowing");
 
 }catch(err){
 Get.snackbar("title", "error inside createfollowing");
@@ -40,7 +41,7 @@ Get.snackbar("title", "error inside deleteFollowing");
 
 
 
-readUsersFollowing({String? userID})async{
+Future<List<following>> readUsersFollowing({String? userID})async{
 
 List<following> userFollowing=[];
 try{
@@ -61,18 +62,21 @@ for (var element in userFollowing) {
 Get.snackbar("title", element.followedUserID.toString());
 }
 return userFollowing;
-}catch(err){}
+}catch(err){
+return userFollowing;
+
+}
 }
 
 
 
-readUsersFollowers({String? userID})async{
+Future<List<following>> readUsersFollowers({String? userID})async{
 
 List<following> userFollowers=[];
 
 try{
   await FirebaseFirestore.instance
-    .collection('following').
+  .collection('following').
    where('followedUserID', isEqualTo: userID ) // we need to change username to userName
     .get() //Future<QuerySnapshot<Map<String, dynamic>>>
     .then((QuerySnapshot querySnapshot) {
@@ -87,8 +91,10 @@ userFollowers.add(following.fronJson(doc.data() as Map<String, dynamic>));
 for (var element in userFollowers) {
 Get.snackbar("title", element.followedUserID.toString());
 }
-return userFollowers;}
+return userFollowers;
+}
 catch(err){
+return userFollowers;
 
 
 }

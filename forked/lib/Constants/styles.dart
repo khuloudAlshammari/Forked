@@ -33,6 +33,8 @@ TextStyle h3 = TextStyle(
     fontWeight: FontWeight.w400);
 
 TextStyle h4 = TextStyle(
+
+  overflow:TextOverflow.clip ,
     color: darkGreen,
     fontSize: 13,
     fontFamily: "Inter",

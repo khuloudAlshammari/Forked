@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:forked/Components/CustomButton.dart';
-import 'package:forked/Components/FollowAndUnfollow.dart';
 import 'package:forked/Components/followcomp.dart';
 import 'package:forked/Components/picker.dart';
 import 'package:forked/Constants/styles.dart';
@@ -10,12 +9,14 @@ import 'package:forked/Controllers/ProfileController.dart';
 import 'package:get/get.dart';
 
 import '../Components/AppBar.dart';
+import '../Components/FollowAndUnfollow.dart';
+import '../Controllers/OthersProfileController.dart';
 
-class Profile extends StatelessWidget {
-  Profile({
+class othersProfile extends StatelessWidget {
+  othersProfile({
     super.key,
   });
-  ProfileController profileController = Get.put(ProfileController());
+  OthersProfileController profileController = Get.put(OthersProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +62,9 @@ class Profile extends StatelessWidget {
                 ),
               ),
 
+              //follow button :
+              FollowAndUnfollow(),
+              
               SizedBox(
                 height: 5,
               ),
@@ -90,7 +94,7 @@ class Profile extends StatelessWidget {
               ),
 
               //picker :
-              GetBuilder<ProfileController>(builder: (builder) {
+              GetBuilder<OthersProfileController>(builder: (builder) {
                 return picker(
                   first: "Recipes",
                   second: "Saved",
@@ -112,7 +116,7 @@ class Profile extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Container(
-                  child: GetBuilder<ProfileController>(builder: (builder) {
+                  child: GetBuilder<OthersProfileController>(builder: (builder) {
                     return ListView(
                       children: [
                         //List of user recipes :
@@ -127,19 +131,12 @@ class Profile extends StatelessWidget {
 
                         //List of saved recipes :
                         profileController.currentIndex == 1
-                            ? Container(
-                              height: 600,
-                              child: GridView.count(
-                                crossAxisCount: 2,
-                              children: profileController.userSaved,
-                              ),
-                            )
-                            // Padding(
-                            //     padding: EdgeInsets.all(0),
-                            //     child: Column(
-                            //       children: profileController.userSaved,
-                            //     ),
-                            //   )
+                            ? Padding(
+                                padding: EdgeInsets.all(0),
+                                child: Column(
+                                  children: profileController.userSaved,
+                                ),
+                              )
                             : SizedBox(),
 
                         //List of user innovation :

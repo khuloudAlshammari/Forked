@@ -64,6 +64,7 @@ int forking=0;
               height: 20,
             ),
             TextFieldCom(
+              Controller: myRecipeController.title,
               IconImage: "images/receipeTitel.png",
               borderColor: lightGreen,
               hint_Text: "recipe name",
@@ -100,6 +101,8 @@ int forking=0;
                       constraints: BoxConstraints(
                           maxWidth: Get.width * .25, maxHeight: 70),
                       child: TextFieldCom(
+                       Controller: myRecipeController.minutes,
+
                         borderColor: lightGreen,
                         IconImage: 'images/time.png',
                       ),
@@ -119,6 +122,8 @@ int forking=0;
                       constraints: BoxConstraints(
                           maxWidth: Get.width * .25, maxHeight: 70),
                       child: TextFieldCom(
+                            Controller: myRecipeController.servings,
+
                         borderColor: lightGreen,
                         IconImage: 'images/time.png',
                       ),
@@ -138,6 +143,8 @@ int forking=0;
                       constraints: BoxConstraints(
                           maxWidth: Get.width * .25, maxHeight: 70),
                       child: TextFieldCom(
+                        Controller: myRecipeController.calories,
+
                         borderColor: lightGreen,
                         IconImage: 'images/time.png',
                       ),
@@ -215,7 +222,11 @@ int forking=0;
 
        Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
          children: [
-           myButton(text: "Save", backGroundColor: BrightGreen,),
+           InkWell(
+          onTap: ()async{
+            
+            await myRecipeController.createTheRecipe();},
+             child: myButton(text: "Save", backGroundColor: BrightGreen,)),
                myButton(text: "Cancel", backGroundColor: BrightGreen,),
          ],
        ),
