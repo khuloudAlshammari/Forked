@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:forked/Components/Language/Language.dart';
 
 import 'package:forked/Components/textField.dart';
+import 'package:forked/Controllers/languageController.dart';
 import 'package:forked/Views/CreateRecipe.dart';
 import 'package:forked/Views/ViewRecipe.dart';
 import 'package:forked/Views/khuloudTest.dart';
@@ -12,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:forked/Routes/Router.dart';
 import 'package:forked/Views/RegistrationNav.dart';
 import 'firebase_options.dart';
+
 
 main()async {
 
@@ -28,37 +31,41 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   // Get.put(MyLocaleController());
     return GetMaterialApp(
-      // initialRoute: NamedRoute.StratingPage,
-      //  getPages: appRoutes,
+        initialRoute: NamedRoute.StratingPage,
+         getPages: appRoutes,
+
+//locale: Get.deviceLocale,
+     // translations: Language(),
 
 
+    
 
-      home: test(),
+  home:
 
-//  home: createRecipe(
+     createRecipe(
 
-// steps: [
+  steps: [
 
-//   SizedBox(),
-//     SizedBox(),
+    SizedBox(),
+     SizedBox(),
 
-//   SizedBox(),
+    SizedBox(),
 
-// ],
+   ],
 
 
+  ingredients: [
 
-// ingredients: [
+    SizedBox(),
 
-//   SizedBox(),
+     SizedBox(),
 
-//   SizedBox(),
+  ],
 
-// ],
+   ),
 
-//  ),
-//  //home: ProfilEdiet(),
 
 
 
