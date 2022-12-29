@@ -85,7 +85,7 @@ usersRecipies.add(forkedRecipe.fronJson(doc.data() as Map<String, dynamic>));
         });
     });
     for (var element in usersRecipies) {
-      Get.snackbar("title", element.title.toString());
+      //Get.snackbar("title", element.title.toString());
     }
     return usersRecipies;
     }catch(err){
@@ -122,7 +122,7 @@ usersRecipies.add(originalRecipe.fronJson(doc.data() as Map<String, dynamic>));
         });
     });
     for (var element in usersRecipies) {
-      Get.snackbar("title", element.title.toString());
+      //Get.snackbar("title", element.title.toString());
     }
     return usersRecipies;
     }catch(err){
@@ -315,7 +315,7 @@ for(var i=0;i<usersNames.length;i++){
 
 
 for (var element in finalUsers) {
-  Get.snackbar("user name", element.username!);
+  //Get.snackbar("user name", element.username!);
 }
 
   return finalUsers;
@@ -362,7 +362,7 @@ for(var i=0;i<originalNames.length;i++){
 
 
 for (var element in finalOriginal) {
-  Get.snackbar("original title", element.title!);
+  //Get.snackbar("original title", element.title!);
 }
   return finalOriginal;
 }
@@ -410,7 +410,7 @@ for(var i=0;i<forkedNames.length;i++){
 
 
 for (var element in finalForked) {
-  Get.snackbar("forks title", element.title!);
+  //Get.snackbar("forks title", element.title!);
 }
   return finalForked;
 }

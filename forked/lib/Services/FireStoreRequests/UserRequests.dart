@@ -8,12 +8,12 @@ updateData(
     {required String collection,
     required String docoment,
     required String fieldKey,
-    required String newValue}) async {
+    required var newValue}) async {
   try {
     await db.collection(collection).doc(docoment).update({fieldKey: newValue});
-    Get.snackbar("SUCCESS", "Successfully update");
+    //Get.snackbar("SUCCESS", "Successfully update");
   } catch (e) {
-    Get.snackbar("ERROR", "An error ocur");
+    //Get.snackbar("ERROR", "An error ocur");
   }
 }
 
@@ -26,7 +26,7 @@ setUser({required String email, required String id, String? username}) async {
         .doc(id)
         .set({"userID": id, "email": email, "username": username});
   } catch (err) {
-    Get.snackbar("title", "error inside SETUSER");
+    //Get.snackbar("title", "error inside SETUSER");
   }
 }
 
@@ -37,13 +37,13 @@ Future<user> readUserData({String? userID}) async {
     await db.collection("users").doc(userID).get().then(
       (DocumentSnapshot doc) {
         returned = user.fronJson(doc.data() as Map<String, dynamic>);
-        Get.snackbar("title", "trueee"); // ...
+       // Get.snackbar("title", "trueee"); // ...
       },
     );
 
     return returned;
   } catch (err) {
-    Get.snackbar("title", "readUser");
+    //Get.snackbar("title", "readUser");
     return returned;
   }
 }

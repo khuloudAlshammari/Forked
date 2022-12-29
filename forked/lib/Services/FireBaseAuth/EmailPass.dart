@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:forked/Views/RegistrationNav.dart';
 import 'package:get/get.dart';
 
-
-
+import '../../Components/startingMessage.dart';
 import '../../Views/BNBar.dart';
 import '../../main.dart';
 import '../FireStoreRequests/RiecipeRequests.dart';
@@ -50,7 +50,7 @@ createAccount(
       }
     }
   } catch (w) {
-    Get.snackbar("title", w.toString());
+    Get.snackbar("ERROR", w.toString());
   }
 }
 
@@ -60,23 +60,22 @@ loginWithPass({required String email, required String password}) async {
         email: email, password: password);
     if (myUser.user?.uid != null) {
       try {
-       myUserData = await readUserData(userID: myUser.user?.uid);
-      userOriginalRecipies =
+        myUserData = await readUserData(userID: myUser.user?.uid);
+        userOriginalRecipies =
             await readUsersOriginalRecipies(userID: myUser.user?.uid);
-      userForkedRecipeRecipies =
+        userForkedRecipeRecipies =
             await readUsersForkedlRecipies(userID: myUser.user?.uid);
-      usersLikedRecipies =
+        usersLikedRecipies =
             await readUsersLikedRecipies(userID: myUser.user?.uid);
-       userSavedRecipies =
+        userSavedRecipies =
             await readUserSavedRecipies(userID: myUser.user?.uid);
-     userFollowing =
-            await readUsersFollowing(userID: myUser.user?.uid);
-     userFollowers =
-            await readUsersFollowers(userID: myUser.user?.uid);
-        Get.snackbar("title", "snack.username.toString()");
+        userFollowing = await readUsersFollowing(userID: myUser.user?.uid);
+        print(userFollowing.toString());
+        userFollowers = await readUsersFollowers(userID: myUser.user?.uid);
+        //Get.snackbar("title", "snack.username.toString()");
         Get.to(BNBart());
       } catch (err) {
-        Get.snackbar("title", "LKLLKLKLKLLK");
+       // Get.snackbar("title", "LKLLKLKLKLLK");
       }
     }
   } on FirebaseAuthException catch (err) {}
@@ -94,13 +93,20 @@ setEmail({required String email}) {
     print("objekllklklkklklkllklkklkllkklklklklklklklkllkkllkct");
   }
 }
+signOut() async {
+  try {
+    var user = await inctence.signOut();
+    Get.offAll(start());
+  } catch (error) {}
+}
+
 
 passwordReset({required String email}) async {
   try {
     await inctence.sendPasswordResetEmail(email: email);
 
-    Get.snackbar("title", "Password reset link sent . Check your email ");
+    Get.snackbar("SUCCESS", "Password reset link sent . Check your email ");
   } on FirebaseAuthException catch (e) {
-    Get.snackbar("title", e.message.toString());
+    Get.snackbar("ERROR", e.message.toString());
   }
 }

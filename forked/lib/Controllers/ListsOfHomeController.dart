@@ -8,6 +8,7 @@ import 'package:forked/Services/FireStoreRequests/RiecipeRequests.dart';
 import 'package:forked/Services/FireStoreRequests/UserRequests.dart';
 import 'package:forked/Services/FireStoreRequests/allRequests.dart';
 import 'package:forked/Services/FireStoreRequests/followingRequests.dart';
+import 'package:forked/Views/othersProfile.dart';
 import 'package:forked/Views/viewForkedRecippie.dart';
 import 'package:forked/main.dart';
 import 'package:get/get.dart';
@@ -46,7 +47,7 @@ class ListsOfHomeController extends GetxController {
 
     for (var i = 0; i < 6; i++) {
       if (i % 2 == 0 && i < explorrer.length) {
-        Get.snackbar("ortiginal", explorrer[i].title.toString());
+        //Get.snackbar("ortiginal", explorrer[i].title.toString());
         shuffeled.add(Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
           child: ConstrainedBox(
@@ -59,10 +60,10 @@ class ListsOfHomeController extends GetxController {
                 ),
             child: SmallCardRecipeCard(
               recipeName: explorrer[i].title!,
-              recipeImage: "images/6.jpg",
+              recipeImage: explorrer[i].imgPath,
               userName: explorrer[i].username,
               ImageFunct: () {
-                Get.to(ViewRecipe(myRecipie: explorrer[i],));
+                Get.to(ViewRecipe(myRecipie: explorrer[i]));
               },
               likeFunct: () {},
               accontFunct: () {},
@@ -72,7 +73,7 @@ class ListsOfHomeController extends GetxController {
       }
 
       if (i % 2 == 1 && i < forkedExplorer.length) {
-        Get.snackbar("forked", forkedExplorer[i].title.toString());
+        //Get.snackbar("forked", forkedExplorer[i].title.toString());
 
         daliyInspirationList.add(Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
@@ -85,10 +86,10 @@ class ListsOfHomeController extends GetxController {
                 ),
             child: SmallCardRecipeCard(
               recipeName: forkedExplorer[i].title!,
-              recipeImage: "images/6.jpg",
+              recipeImage: forkedExplorer[i].imgPath,
               userName: forkedExplorer[i].username,
               ImageFunct: () {
-                Get.to(ViewMyForkedRecipe(myRecipie: forkedExplorer[i],));
+                Get.to(viewMyForkedRecipie(myRecipie: forkedExplorer[i],));
 
               },
               likeFunct: () {},
@@ -117,7 +118,16 @@ class ListsOfHomeController extends GetxController {
           child: UserDisplay(
             folowers: mostPopular[i].followersNumber!,
             userName: mostPopular[i].username!,
-            funct: () {},
+            funct: () async{
+              List<following> userFollowingCount = await readUsersFollowing(userID: mostPopular[i].userID.toString());
+     List<following> userFollowersCount =
+            await readUsersFollowers(userID: mostPopular[i].userID.toString());
+              Get.to(othersProfile(
+                listOfFollowersCount:userFollowersCount ,
+                listOfFollowingCount: userFollowingCount,
+                otherUser: mostPopular[i], 
+              ));
+            },
           ),
         ));
       }
@@ -149,14 +159,14 @@ class ListsOfHomeController extends GetxController {
 
     for (var i = 0; i < 10; i++) {
       if (i % 2 == 0 && i < originals.length) {
-        Get.snackbar("ortiginal", originals[i].title.toString());
+        //Get.snackbar("ortiginal", originals[i].title.toString());
         followingList!.add(Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
           child: ConstrainedBox(
             constraints: BoxConstraints(),
             child: SmallCardRecipeCard(
               recipeName: originals[i].title!,
-              recipeImage: "images/6.jpg",
+              recipeImage: originals[i].imgPath,
               userName: originals[i].username,
               ImageFunct: () {},
               likeFunct: () {},
@@ -167,7 +177,7 @@ class ListsOfHomeController extends GetxController {
       }
 
       if (i % 2 == 1 && i < forks.length) {
-        Get.snackbar("forked", forks[i].title.toString());
+        //Get.snackbar("forked", forks[i].title.toString());
 
         followingList!.add(Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
@@ -180,7 +190,7 @@ class ListsOfHomeController extends GetxController {
                 ),
             child: SmallCardRecipeCard(
               recipeName: forks[i].title!,
-              recipeImage: "images/6.jpg",
+              recipeImage: forks[i].title!,
               userName: forks[i].username,
               ImageFunct: () {},
               likeFunct: () {},
@@ -217,7 +227,7 @@ class ListsOfHomeController extends GetxController {
 
     for (var i = 0; i < 10; i++) {
       if (i % 2 == 0 && i < explorrer.length) {
-        Get.snackbar("ortiginal", explorrer[i].title.toString());
+        //Get.snackbar("ortiginal", explorrer[i].title.toString());
         shuffeled.add(Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
           child: ConstrainedBox(
@@ -230,7 +240,7 @@ class ListsOfHomeController extends GetxController {
                 ),
             child: SmallCardRecipeCard(
               recipeName: explorrer[i].title!,
-              recipeImage: "images/6.jpg",
+              recipeImage: explorrer[i].imgPath,
               userName: explorrer[i].username,
               ImageFunct: () {},
               likeFunct: () {},
@@ -241,7 +251,7 @@ class ListsOfHomeController extends GetxController {
       }
 
       if (i % 2 == 1 && i < forkedExplorer.length) {
-        Get.snackbar("forked", forkedExplorer[i].title.toString());
+        //Get.snackbar("forked", forkedExplorer[i].title.toString());
 
         shuffeled.add(Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
@@ -254,7 +264,7 @@ class ListsOfHomeController extends GetxController {
                 ),
             child: SmallCardRecipeCard(
               recipeName: forkedExplorer[i].title!,
-              recipeImage: "images/6.jpg",
+              recipeImage: forkedExplorer[i].imgPath,
               userName: forkedExplorer[i].username,
               ImageFunct: () {},
               likeFunct: () {},

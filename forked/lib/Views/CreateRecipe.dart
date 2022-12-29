@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:forked/Components/Camera.dart';
 import 'package:forked/Components/CustomButton.dart';
@@ -6,27 +8,63 @@ import 'package:forked/Constants/styles.dart';
 import 'package:get/get.dart';
 
 import '../Controllers/createRecipeController.dart';
+import '../Services/Image Services/ImagePicker.dart';
 
 // this page should take a list of CameraXstep and another list of ingerdietStEXTfIELD, in case the 
 //user forked a recipe, we will display them before the getBuilder because they are fixed, unless the user deleted one of them, 
 
 
 class createRecipe extends StatelessWidget {
-
-  List<Widget>? steps;
- List<Widget>?  ingredients;
+int truing=1;
+  List<String>? steps;
+ List<String>?  ingredients;
+ String? title,parentID;
+ int? cal,min,serv;
 int forking=0;
+   createRecipeController myRecipeController=Get.put(createRecipeController());
+
   String? header;
-   createRecipe({super.key, this.steps,this.ingredients}){
+   createRecipe({super.key, this.steps,this.ingredients, this.cal=0,this.min=0,this.title="",this.serv=0, this.parentID=""}){
+     if(this.serv==null){
+       this.serv==0;
+     }
+ if(this.title==null){
+       this.title=="";
+     }
+
+ if(this.min==null){
+       this.min==0;
+     }
+ if(this.cal==null){
+       this.cal==0;
+     }
+     if(this.parentID==null){
+       this.parentID=="";
+     }
+ myRecipeController.parentID=parentID.toString();
+    
+myRecipeController.parentName=title.toString();
+
+myRecipeController.calories.text="${this.cal}";
+myRecipeController.minutes.text="${this.min}";
+myRecipeController.servings.text="${this.serv}";
+myRecipeController.title.text=title.toString();
+
+
      if(steps!=null){
        header="make it your own";
+       myRecipeController.steps=steps;
+     myRecipeController.ingredients=ingredients;
+
+
      }else {
        header="create a new recipe";
+            myRecipeController.steps=[];
+     myRecipeController.ingredients=[];
      }
    }
 
    TextEditingController c= TextEditingController();
-   createRecipeController myRecipeController=Get.put(createRecipeController());
 
     
 
@@ -50,7 +88,29 @@ int forking=0;
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                myCamera(),
+                GetBuilder<createRecipeController>(
+                  builder: (e){return   Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                          myRecipeController.image!="imageTesting"? Container(
+                      height: Get.height * (200 / 852),
+                      width: Get.width * (172 / 393),
+                    
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Image.network(myRecipeController.image))):SizedBox()
+           ,
+                      myCamera(funct: ()async{
+                
+                      myRecipeController.image=await  openAndUploadPic(identifier: "${ Random().nextInt(100000)}");
+                        myRecipeController.update();
+                      },),
+                
+                
+                    
+                    ],
+                  );}
+                ),
+              
               ],
             ),
             SizedBox(
@@ -74,7 +134,7 @@ int forking=0;
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        "Derived from Pancake",
+                        "Derived from ${title}",
                         style: h3,
                       )
                     ],
@@ -165,12 +225,12 @@ int forking=0;
             ),
             // TextFieldCom(borderColor: lightGreen, IconImage: "images/add.png"),
             GetBuilder<createRecipeController>(builder: (w){
-
-               if(steps !=null && steps!=[] && ingredients !=null && ingredients!=[] && forking==0 ){
-               print("object");
-             myRecipeController.addForkedFields(steps: steps,ingredients: ingredients);
-             forking++;
-             }
+                 if(truing==1){ truing++;  myRecipeController.addForkedFields();}
+            //    if(steps !=null && steps!=[] && ingredients !=null && ingredients!=[] && forking==0 ){
+            //    print("object");
+            // //  myRecipeController.addForkedFields(steps: steps,ingredients: ingredients);
+            //  forking++;
+            //  }
 
 
               return    Column(
@@ -225,9 +285,29 @@ int forking=0;
            InkWell(
           onTap: ()async{
             
-            await myRecipeController.createTheRecipe();},
+
+
+
+           if(title==""){ await myRecipeController.createTheRecipe();}else{
+ await myRecipeController.createTheForkedRecipe();
+
+// myRecipeController.calories.text="";
+// myRecipeController.minutes.text="";
+// myRecipeController.title.text="";
+// myRecipeController.servings.text="";
+// myRecipeController.ingredientsTextEdittingControler=[];
+// myRecipeController.ingredients=[];
+// myRecipeController.ingredientsTextFielsAndX=[];
+// myRecipeController.stepTextField=[];
+// myRecipeController.stepsTextEdittingControler=[];
+// myRecipeController.image="";
+
+
+            //  await myRecipeController.cre();
+           }
+           
+           },
              child: myButton(text: "Save", backGroundColor: BrightGreen,)),
-               myButton(text: "Cancel", backGroundColor: BrightGreen,),
          ],
        ),
 

@@ -5,6 +5,7 @@ Color BrightGreen = Color(0xffD5F6BB);
 Color lightGreen = Color(0xffA4E473);
 Color darkGreen = Color(0xff004651);
 Color grey = Colors.grey;
+Color? lightGrey = Colors.grey[200];
 var defaultAvatar = "images/user.png";
 var defaultImage = "images/0.jpg";
 
@@ -33,8 +34,7 @@ TextStyle h3 = TextStyle(
     fontWeight: FontWeight.w400);
 
 TextStyle h4 = TextStyle(
-
-  overflow:TextOverflow.clip ,
+    overflow: TextOverflow.clip,
     color: darkGreen,
     fontSize: 13,
     fontFamily: "Inter",

@@ -6,6 +6,11 @@ import 'package:forked/Components/followcomp.dart';
 import 'package:forked/Components/picker.dart';
 import 'package:forked/Constants/styles.dart';
 import 'package:forked/Controllers/ProfileController.dart';
+import 'package:forked/Models/User.dart';
+import 'package:forked/Models/following.dart';
+import 'package:forked/Services/FireStoreRequests/UserRequests.dart';
+import 'package:forked/Services/FireStoreRequests/followingRequests.dart';
+import 'package:forked/main.dart';
 import 'package:get/get.dart';
 
 import '../Components/AppBar.dart';
@@ -13,14 +18,42 @@ import '../Components/FollowAndUnfollow.dart';
 import '../Controllers/OthersProfileController.dart';
 
 class othersProfile extends StatelessWidget {
-  othersProfile({
-    super.key,
-  });
-  OthersProfileController profileController = Get.put(OthersProfileController());
+  user otherUser;
+
+  OthersProfileController OthersProfileCon = Get.put(OthersProfileController());
+
+  List<following> listOfFollowingCount = [];
+  List<following> listOfFollowersCount = [];
+
+  othersProfile(
+      {super.key,
+      required this.otherUser,
+      required this.listOfFollowersCount,
+      required this.listOfFollowingCount}) {
+    OthersProfileCon.isFollow =
+        OthersProfileCon.checkIfIsFollow(userID: otherUser.userID);
+
+    OthersProfileCon.usersRec(userID: otherUser.userID);
+    OthersProfileCon.update();
+
+    OthersProfileCon.usersSav(userID: otherUser.userID);
+    OthersProfileCon.update();
+
+    OthersProfileCon.userIno(userID: otherUser.userID);
+    OthersProfileCon.update();
+
+
+    if (otherUser.followersNumber != listOfFollowersCount.length) {
+      updateData(
+          collection: 'users',
+          docoment: "${otherUser.userID.toString()}",
+          fieldKey: "followersNumber",
+          newValue: listOfFollowersCount.length.toInt());
+    } else {}
+  }
 
   @override
   Widget build(BuildContext context) {
-    print(profileController.userRecipes);
     return Scaffold(
       appBar: myappBar,
       body: ListView(children: [
@@ -56,15 +89,33 @@ class othersProfile extends StatelessWidget {
                 //color: Colors.teal,
                 child: Center(
                   child: Text(
-                    "Cloris",
+                    otherUser.username.toString(),
                     style: h2,
                   ),
                 ),
               ),
 
               //follow button :
-              FollowAndUnfollow(),
-              
+              GetBuilder<OthersProfileController>(builder: (builder) {
+                return FollowAndUnfollow(
+                  isFollow: OthersProfileCon.isFollow,
+                  onPressFollow: () {
+                    createFollowing(
+                        followedUserID: otherUser.userID.toString(),
+                        userID: myUserData.userID.toString());
+                    OthersProfileCon.isFollow = true;
+                    OthersProfileCon.update();
+                  },
+                  onPressUnFollow: () {
+                    deleteFollowing(
+                        followingID:
+                            "${myUserData.userID.toString()}_${otherUser.userID.toString()}");
+                    OthersProfileCon.isFollow = false;
+                    OthersProfileCon.update();
+                  },
+                );
+              }),
+
               SizedBox(
                 height: 5,
               ),
@@ -73,8 +124,8 @@ class othersProfile extends StatelessWidget {
                 width: Get.width * .6,
                 height: 80,
                 child: FollowComp(
-                  followercount: 299,
-                  followingcount: 534,
+                  followercount: listOfFollowersCount.length, //
+                  followingcount: listOfFollowingCount.length, //
                 ),
               ),
               SizedBox(
@@ -83,9 +134,10 @@ class othersProfile extends StatelessWidget {
               Container(
                 height: Get.height * .12,
                 width: Get.width * .85,
-                color: Colors.tealAccent,
-                child: Text(
-                  "I am a stay-at-home mom (sounds better than recently retired , don’t you think?) who loves to spend time in my kitchen",
+                //color: Colors.tealAccent,
+
+                child: Text(                  
+                  "${otherUser.profile == null ? "" : otherUser.profile.toString()}" ,
                   style: h3,
                 ),
               ),
@@ -99,15 +151,15 @@ class othersProfile extends StatelessWidget {
                   first: "Recipes",
                   second: "Saved",
                   third: "Chef Innovation",
-                  pickerIndex: profileController.currentIndex!,
+                  pickerIndex: OthersProfileCon.currentIndex!,
                   f1: () {
-                    profileController.setIndex(index: 0);
+                    OthersProfileCon.setIndex(index: 0);
                   },
                   f2: () {
-                    profileController.setIndex(index: 1);
+                    OthersProfileCon.setIndex(index: 1);
                   },
                   f3: () {
-                    profileController.setIndex(index: 2);
+                    OthersProfileCon.setIndex(index: 2);
                   },
                 );
               }),
@@ -116,35 +168,83 @@ class othersProfile extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Container(
-                  child: GetBuilder<OthersProfileController>(builder: (builder) {
-                    return ListView(
+                  width: Get.width,
+                  child:
+                      GetBuilder<OthersProfileController>(builder: (builder) {
+                    return Column(
+                      mainAxisSize: MainAxisSize.max,
                       children: [
                         //List of user recipes :
-                        profileController.currentIndex == 0
-                            ? Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                  children: profileController.userRecipes!,
+                        OthersProfileCon.currentIndex == 0
+                            ? Expanded(
+                                flex: 1,
+                                child: Container(
+                                  width: Get.width * 3,
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          .02),
+                                  child: GridView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: OthersProfileCon
+                                          .otherUserRecipes!.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return OthersProfileCon
+                                            .otherUserRecipes![index];
+                                      }),
                                 ),
                               )
                             : SizedBox(),
 
-                        //List of saved recipes :
-                        profileController.currentIndex == 1
-                            ? Padding(
-                                padding: EdgeInsets.all(0),
-                                child: Column(
-                                  children: profileController.userSaved,
+                        //List of saved recipes ://here
+                        OthersProfileCon.currentIndex == 1
+                            ?
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                  width: Get.width * 3,
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          .02),
+                                  child: GridView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: OthersProfileCon.otherUserSaved!.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return OthersProfileCon
+                                            .otherUserSaved![index];
+                                      }),
                                 ),
                               )
                             : SizedBox(),
 
                         //List of user innovation :
-                        profileController.currentIndex == 2
-                            ? Padding(
-                                padding: EdgeInsets.all(0),
-                                child: Column(
-                                  children: profileController.userInnovations,
+                        OthersProfileCon.currentIndex == 2
+                            ?
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                  width: Get.width * 3,
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          .02),
+                                  child: GridView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: OthersProfileCon.otheruserInnovations!.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return OthersProfileCon
+                                            .otheruserInnovations![index];
+                                      }),
                                 ),
                               )
                             : SizedBox(),

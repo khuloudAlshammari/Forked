@@ -5,6 +5,9 @@ import 'package:forked/Constants/styles.dart';
 import 'package:forked/Views/CreateRecipe.dart';
 import 'package:forked/Views/Home.dart';
 import 'package:forked/Views/Profile.dart';
+import 'package:get/get.dart';
+
+import '../Controllers/createRecipeController.dart';
 
 class BNBart extends StatefulWidget {
   const BNBart({super.key});
@@ -36,7 +39,13 @@ class _BNBartState extends State<BNBart> {
           unselectedItemColor: grey,
           onTap: ((value) {
             setState(() {
+              // if(click==0 || click==2){
+              Get.delete<createRecipeController>();
+              Pages[1]=createRecipe();
+              
+              // }
               click = value;
+
             });
           }),
           items: [

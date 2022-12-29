@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../Constants/styles.dart';
 //كمبونت الاب بار
@@ -6,7 +7,8 @@ import '../Constants/styles.dart';
 AppBar myappBar = AppBar(
   leading: IconButton(
     icon: Icon(Icons.arrow_back_ios, color: darkGreen),
-    onPressed: () {},
+    onPressed: 
+    () => Get.back(),
   ),
   shadowColor: Colors.lightGreen,
   backgroundColor: Colors.white,

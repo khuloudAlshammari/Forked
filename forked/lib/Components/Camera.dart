@@ -9,14 +9,20 @@ import 'package:get/get.dart';
 class myCamera extends StatelessWidget {
   String addI="";
   double? height;
+  Widget? icons;
   Function()? funct;
-  myCamera({super.key, this.height, this.funct}) {
+  myCamera({super.key, this.height, this.funct, this.icons}) {
     addI="Add Image";
     if (height == null) {
       height = Get.height * (200 / 852);
     }
   
-
+if(icons==null){
+icons=Icon(
+              Icons.camera_alt_outlined,
+              size: 35,
+            );
+}
   }
 
   @override
@@ -41,10 +47,7 @@ class myCamera extends StatelessWidget {
               style: h2,
             ),
             height: 50,
-            centeredIcon: Icon(
-              Icons.camera_alt_outlined,
-              size: 35,
-            ),
+            centeredIcon: icons,
           )),
         ),
       ),

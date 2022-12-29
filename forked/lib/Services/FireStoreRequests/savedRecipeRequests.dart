@@ -15,7 +15,7 @@ try{
   await db.collection('savedRecipies').doc("${userID}_${recipeID}").set({"userID":userID, "recipeID":recipeID});
 
 }catch(err){
-Get.snackbar("title", "error inside createSaved");
+//Get.snackbar("title", "error inside createSaved");
 }
 }
 
@@ -29,7 +29,7 @@ await db.collection("savedRecipies").doc(savedRecipieID).delete();
   }catch(ee){
 
 
-Get.snackbar("title", "error inside deleteLiked");
+//Get.snackbar("title", "error inside deleteLiked");
 
 
   }
@@ -58,7 +58,7 @@ userLikedRecipe.add(savedRecipe.fronJson(doc.data() as Map<String, dynamic>));
     });
 
 for (var element in userLikedRecipe) {
-Get.snackbar("title", element.recipeID.toString());
+//Get.snackbar("title", element.recipeID.toString());
 }
 return userLikedRecipe;
 }catch(err){

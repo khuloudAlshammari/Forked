@@ -42,9 +42,9 @@ setForkedRecipe(
       "parentID":parentID
 
     });
-    Get.snackbar("title", "set recipe is working");
+    //Get.snackbar("title", "set recipe is working");
   } catch (err) {
-    Get.snackbar("title", "error inside set recipe");
+    //Get.snackbar("title", "error inside set recipe");
   }
 }
 
@@ -61,7 +61,7 @@ forkedRecipe returned=forkedRecipe();
    await db.collection("forkedRecipe").doc(recipeID).get().then(
   (DocumentSnapshot doc) {
 returned= forkedRecipe.fronJson(doc.data() as Map<String, dynamic>);  
-Get.snackbar("title", returned.imgPath.toString());  // ...
+//Get.snackbar("title", returned.imgPath.toString());  // ...
   },
   
 );
@@ -71,7 +71,7 @@ return returned;
 
  }catch(err){
   
-  Get.snackbar("title", "readUser");
+ // Get.snackbar("title", "readUser");
 return returned;
   
   }
@@ -100,7 +100,7 @@ userForkedRecipes.add(forkedRecipe.fronJson(doc.data() as Map<String, dynamic>))
     });
 
 for (var element in userForkedRecipes) {
-Get.snackbar("title", element.title.toString());
+//Get.snackbar("title", element.title.toString());
 }
 return userForkedRecipes;
 }catch(err){
@@ -167,7 +167,7 @@ OriginalForkedlRecipies.add(forkedRecipe.fronJson(doc.data() as Map<String, dyna
     });
 
 for (var element in OriginalForkedlRecipies) {
-Get.snackbar("title", element.title.toString());
+//Get.snackbar("title", element.title.toString());
 }
 return OriginalForkedlRecipies;
 }catch(err){

@@ -8,13 +8,15 @@ import 'package:forked/Constants/styles.dart';
 import 'package:get/get.dart';
 
 class FollowAndUnfollow extends StatelessWidget {
-  bool isFollow = true;
+  bool? isFollow ;
   String follow = 'Follow';
   String unfollow = 'UnFollow';
-  Function()? onPress;
+  
+  Function()? onPressFollow , onPressUnFollow;
 
   FollowAndUnfollow({
-    super.key,this.onPress
+    super.key,this.onPressFollow,
+    this.onPressUnFollow, this.isFollow
   });
 
   @override
@@ -23,15 +25,16 @@ class FollowAndUnfollow extends StatelessWidget {
             height: 45,
             width: Get.width * .24,
             child: ElevatedButton(
-              onPressed: onPress,
+              onPressed: isFollow != true ? onPressFollow:onPressUnFollow ,
               child: Text(
-                isFollow ? follow : unfollow,
-                style: h2,
+                isFollow == true ?  unfollow:follow ,
+                style: h3,
               ),
               style: ElevatedButton.styleFrom(
+                shadowColor: Colors.transparent,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
-                  primary: lightGreen,
+                  primary: isFollow != true ? lightGreen:lightGrey,
                   padding: EdgeInsets.all(5)),
             ));
   }

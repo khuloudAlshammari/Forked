@@ -17,32 +17,46 @@ originalRecipe myRecipie;
   viewRecipeController myController = Get.put(viewRecipeController());
 
   ViewRecipe({super.key,required this.myRecipie}){
+        myController.forks=[];
+myController.id=myRecipie.userID;
+  
+myController.cal=myRecipie.calories;
+myController.min=myRecipie.minutes;
+myController.title=myRecipie.title;
+myController.serv=myRecipie.servings;
 
+myController.parentID=myRecipie.recipeID!;
+myController.ooCon();
     // StepsDescription(step: 1, stepdetail: "stepdq;qwldq;wdkq;wokdpqowdkqpowdkq;dkq;odkq;wodkq;owdkq;wodkq;wodkq;dwokq;odwkq;wodkq;odkq;owkdq;odk;qowdkq;owdk;dokq;okd;qokdwq;dwlq;dkq;owdkqowdkpqowdkqpowdkpqowdkpqowdkqpowdkqpokdwqpdokqplqdnqlwndqilwdnkqwdnjkqjndkqjndkqjwndqkjwndkqjwndkqjndqkjwndkqwjndqkjwdnqkjwndkqjdnwkqjndkqjwdnowdkqpodkqpwodkqpowdkqpokdq;qowdk;qodkq;wdkq;wodketail"),
  myController.steps=[];
  myController.ingredients=[];
     String mySteps= myRecipie.preperation!.substring(0,myRecipie.preperation!.length-3);
-  List<String> stepsList=mySteps.split("=_=");
-for (var i=0; i<stepsList.length;i++) {
- myController.steps!.add(StepsDescription(step: i+1, stepdetail: stepsList[i]));
+  myController.stepsList=mySteps.split("=_=");
+for (var i=0; i<myController.stepsList.length;i++) {
+ myController.steps!.add(StepsDescription(step: i+1, stepdetail: myController.stepsList[i]));
 
 }
 
 
 
    String myIngredients= myRecipie.ingredients!.substring(0,myRecipie.ingredients!.length-3);
-  List<String> ingredientList=myIngredients.split("=_=");
-for (var i=0; i<ingredientList.length;i++) {
+  myController.ingredientList=myIngredients.split("=_=");
+for (var i=0; i<myController.ingredientList.length;i++) {
 myController.ingredients!.add( Padding(
      padding: const EdgeInsets.symmetric(vertical: 15),
-     child: Text("• ${ingredientList[i]}", style: h4,),
+     child: Text("• ${myController.ingredientList[i]}", style: h4,),
    ),);
+   
 }
+
+
+
+
+
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar() ,
       body: ListView(children: [
         Container(
             height: Get.height * 1.3,
@@ -57,7 +71,7 @@ myController.ingredients!.add( Padding(
                   height: Get.height * .4,
                   child: FittedBox(
                     fit: BoxFit.fill,
-                    child: Image.asset("images/0.jpg"),
+                    child:myRecipie.imgPath=="imageTesting"?  SizedBox():Image.network("${myRecipie.imgPath}"),
                   ),
                 ),
 
@@ -134,6 +148,7 @@ myController.ingredients!.add( Padding(
                           height: 18,
                         ),
                         GetBuilder<viewRecipeController>(builder: (d) {
+
                           return picker(
                             first: "Ingredients",
                             second: "Preperation",
@@ -154,53 +169,149 @@ myController.ingredients!.add( Padding(
                           height: 10,
                         ),
 
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            color: Color.fromARGB(255, 255, 198, 198),
-                            child:
-                                GetBuilder<viewRecipeController>(builder: (f) {
-                              return ListView(
-                                children: [
-                                  //test to display steps
-                                  myController.currentIndex == 1
-                                      ? Padding(
-                                          padding: EdgeInsets.all(0),
-                                          child: Column(
-                                            children: myController.steps!,
-                                          ),
-                                        )
-                                      : SizedBox(),
+                        // Expanded(
+                        //   flex: 1,
+                        //   child: Container(
+                        //     color: Color.fromARGB(255, 255, 198, 198),
+                        //     child:
+                        //         GetBuilder<viewRecipeController>(builder: (f) {
+                        //       return ListView(
+                        //         children: [
+                        //           //test to display steps
+                        //           myController.currentIndex == 1
+                        //               ? Padding(
+                        //                   padding: EdgeInsets.all(0),
+                        //                   child: Column(
+                        //                     children: myController.steps!,
+                        //                   ),
+                        //                 )
+                        //               : SizedBox(),
 
-                                  //test to display steps
+                        //           //test to display steps
 
-                                  myController.currentIndex == 0
-                                      ? Padding(
-                                          padding: EdgeInsets.all(0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: myController.ingredients!,
-                                          ),
-                                        )
-                                      : SizedBox(),
+                        //           myController.currentIndex == 0
+                        //               ? Padding(
+                        //                   padding: EdgeInsets.all(0),
+                        //                   child: Column(
+                        //                     crossAxisAlignment:
+                        //                         CrossAxisAlignment.stretch,
+                        //                     mainAxisAlignment:
+                        //                         MainAxisAlignment.start,
+                        //                     children: myController.ingredients!,
+                        //                   ),
+                        //                 )
+                        //               : SizedBox(),
 
-                                  //test to display steps
-                                  myController.currentIndex == 2
-                                      ? Padding(
-                                          padding: EdgeInsets.all(0),
-                                          child: Column(
-                                            children: myController.forks!,
-                                          ),
-                                        )
-                                      : SizedBox(),
-                                ],
-                              );
-                            }),
-                          ),
-                        )
+                        //           //test to display steps
+                        //           myController.currentIndex == 2
+                        //               ? Padding(
+                        //                   padding: EdgeInsets.all(0),
+                        //                   child: Column(
+                        //                     children: myController.forks!,
+                        //                   ),
+                        //                 )
+                        //               : SizedBox(),
+                        //         ],
+                        //       );
+                        //     }),
+                        //   ),
+                        // )
+
+                           Expanded(
+                flex: 1,
+                child: Container(
+                  width: Get.width,
+                  child: GetBuilder<viewRecipeController>(builder: (builder) {
+
+                    return
+                        //List of user recipes :
+                        Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        myController.currentIndex == 0
+                            ? Expanded(
+                                flex: 1,
+                                child: Container(
+                                  width: Get.width * 3,
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          .02),
+                                  child: GridView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount:
+                                      
+                                          myController.ingredients!.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                            childAspectRatio: Get.width/(Get.width*.2),
+                                        crossAxisCount: 1,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return myController
+                                            .ingredients![index];
+                                      }),
+                                ),
+                              )
+                            : SizedBox(),
+
+                        //List of saved recipes :
+                        myController.currentIndex == 1
+                            ? 
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                  width: Get.width * 3,
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          .02),
+                                  child: GridView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount:
+                                          myController.steps!.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 1,
+                                       childAspectRatio: Get.width/(Get.width*.6),
+
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return myController
+                                            .steps![index];
+                                      }),
+                                ),
+                              )
+                            : SizedBox(),
+
+                        //List of user innovation :
+                        myController.currentIndex == 2
+                            ?
+                             Expanded(
+                                flex: 1,
+                                child: Container(
+                                  width: Get.width * 3,
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          .02),
+                                  child: GridView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount:
+                                          myController.forks!.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return myController.forks![index];
+                                      }),
+                                ),
+                              )
+                            : SizedBox(),
+                      ],
+                    );
+                  }),
+                ),
+              )
+                        
                       ],
                     ),
                   ),
