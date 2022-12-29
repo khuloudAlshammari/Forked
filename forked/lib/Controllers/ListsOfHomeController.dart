@@ -11,8 +11,6 @@ import 'package:forked/Services/FireStoreRequests/followingRequests.dart';
 import 'package:forked/Views/viewForkedRecippie.dart';
 import 'package:forked/main.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-
 import '../Models/originalRecipie.dart';
 import '../Services/FireStoreRequests/forkedRecipeRequests.dart';
 import '../Views/ViewRecipe.dart';
