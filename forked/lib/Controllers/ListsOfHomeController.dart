@@ -8,12 +8,14 @@ import 'package:forked/Services/FireStoreRequests/RiecipeRequests.dart';
 import 'package:forked/Services/FireStoreRequests/UserRequests.dart';
 import 'package:forked/Services/FireStoreRequests/allRequests.dart';
 import 'package:forked/Services/FireStoreRequests/followingRequests.dart';
+import 'package:forked/Views/viewForkedRecippie.dart';
 import 'package:forked/main.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import '../Models/originalRecipie.dart';
 import '../Services/FireStoreRequests/forkedRecipeRequests.dart';
+import '../Views/ViewRecipe.dart';
 
 class ListsOfHomeController extends GetxController {
   List<Widget> daliyInspirationList = [];
@@ -61,7 +63,9 @@ class ListsOfHomeController extends GetxController {
               recipeName: explorrer[i].title!,
               recipeImage: "images/6.jpg",
               userName: explorrer[i].username,
-              ImageFunct: () {},
+              ImageFunct: () {
+                Get.to(ViewRecipe(myRecipie: explorrer[i],));
+              },
               likeFunct: () {},
               accontFunct: () {},
             ),
@@ -85,7 +89,10 @@ class ListsOfHomeController extends GetxController {
               recipeName: forkedExplorer[i].title!,
               recipeImage: "images/6.jpg",
               userName: forkedExplorer[i].username,
-              ImageFunct: () {},
+              ImageFunct: () {
+                Get.to(ViewMyForkedRecipe(myRecipie: forkedExplorer[i],));
+
+              },
               likeFunct: () {},
               accontFunct: () {},
             ),

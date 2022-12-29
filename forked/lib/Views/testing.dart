@@ -1,45 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:forked/Components/Camera.dart';
+import 'package:forked/Components/RecipeImage.dart';
 import 'package:forked/Components/userDisplay.dart';
-class testing extends StatefulWidget {
-   testing({super.key});
+import 'package:get/get.dart';
 
-  @override
-  State<testing> createState() => _testingState();
-}
+class testing extends StatelessWidget {
+  testing({super.key});
 
-class _testingState extends State<testing> {
-TextEditingController con=TextEditingController();
+// TextEditingController con=TextEditingController();
 
-List<Widget> listWidget=[];
-List<TextEditingController> lis=[];
+// List<Widget> listWidget=[];
+
+// List<TextEditingController> lis=[];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-
-
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-         Column(
-           children: listWidget,
-         ),
-
-          ElevatedButton(onPressed: (){
-           lis.add(TextEditingController());
-            listWidget.add( TextField(
-            controller:lis.last ,
-
-          ));
-          setState(() {
-            
-          });
-          }, child: Text("data")),
-
-          
-
-        ],
+        body: SafeArea(
+      child: RecipeImage(imagePath:"https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Ground-Chicken-Meatballs-683x1024.png",)
+        //child:
+        // InkWell(
+        // onTap: () {
+        //   Get.snackbar("title", "message");
+        // },
+        // child: Container(
+        //   child: Expanded(
+        //     flex: 6,
+        //     child: FractionallySizedBox(
+        //       widthFactor: 1,
+        //       child: Container(
+        //         // height: heightVar -10,
+        //         //width: WidthVar,
+        //         // color: Colors.amber,
+        //         child: FittedBox(
+        //           child: Material(
+        //             child: Image.network(
+        //                 "https://freesvg.org/img/abstract-user-flat-4.png"),
+        //           ),
+        //           fit: BoxFit.fill,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ))
       ),
     );
   }

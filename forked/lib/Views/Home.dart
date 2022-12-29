@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import '../Components/TextFieldSearch.dart';
 import '../Components/Titles.dart';
+import '../main.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
@@ -33,7 +34,7 @@ class Home extends StatelessWidget {
                   height: 30,
                   //**we must add name of use**
                   child: Text(
-                    "Hi, userName ",
+                    "Hi, ${myUserData.username.toString()}",
                     style: h3,
                   ),
                 ),

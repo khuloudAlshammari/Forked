@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:forked/Components/Recipeinfo.dart';
 import 'package:forked/Constants/styles.dart';
 import 'package:forked/Controllers/viewRecipeController.dart';
+import 'package:forked/Models/forkedRecipe.dart';
 import 'package:forked/Models/originalRecipie.dart';
 import 'package:get/get.dart';
 import 'package:like_button/like_button.dart';
@@ -11,12 +12,12 @@ import 'package:like_button/like_button.dart';
 import '../Components/picker.dart';
 import '../Components/preparations_details.dart';
 
-class ViewRecipe extends StatelessWidget {
+class ViewMyForkedRecipe extends StatelessWidget {
   
-originalRecipe myRecipie;
+forkedRecipe myRecipie;
   viewRecipeController myController = Get.put(viewRecipeController());
 
-  ViewRecipe({super.key,required this.myRecipie}){
+  ViewMyForkedRecipe({super.key,required this.myRecipie}){
 
     // StepsDescription(step: 1, stepdetail: "stepdq;qwldq;wdkq;wokdpqowdkqpowdkq;dkq;odkq;wodkq;owdkq;wodkq;wodkq;dwokq;odwkq;wodkq;odkq;owkdq;odk;qowdkq;owdk;dokq;okd;qokdwq;dwlq;dkq;owdkqowdkpqowdkqpowdkpqowdkpqowdkqpowdkqpokdwqpdokqplqdnqlwndqilwdnkqwdnjkqjndkqjndkqjwndqkjwndkqjwndkqjndqkjwndkqwjndqkjwdnqkjwndkqjdnwkqjndkqjwdnowdkqpodkqpwodkqpowdkqpokdq;qowdk;qodkq;wdkq;wodketail"),
  myController.steps=[];
@@ -108,7 +109,13 @@ myController.ingredients!.add( Padding(
                         ),
 
                         //cook name :
-                       
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 2),
+                          height: 25,
+                          width: Get.width * .9,
+                          //color: Colors.pink,
+                          child: Text("Derived from ${myRecipie.parentName}"),
+                        ),
 
                         //Derived :
                         Container(

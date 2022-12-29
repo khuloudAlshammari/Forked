@@ -7,6 +7,7 @@ import 'package:forked/Components/followcomp.dart';
 import 'package:forked/Components/picker.dart';
 import 'package:forked/Constants/styles.dart';
 import 'package:forked/Controllers/ProfileController.dart';
+import 'package:forked/main.dart';
 import 'package:get/get.dart';
 
 import '../Components/AppBar.dart';
@@ -55,7 +56,8 @@ class Profile extends StatelessWidget {
                 //color: Colors.teal,
                 child: Center(
                   child: Text(
-                    "Cloris",
+                    //+++++======+++++
+                    myUserData.username.toString(),
                     style: h2,
                   ),
                 ),
@@ -69,8 +71,8 @@ class Profile extends StatelessWidget {
                 width: Get.width * .6,
                 height: 80,
                 child: FollowComp(
-                  followercount: 299,
-                  followingcount: 534,
+                  followercount: userFollowers.length,
+                  followingcount: userFollowing.length,
                 ),
               ),
               SizedBox(
@@ -79,9 +81,8 @@ class Profile extends StatelessWidget {
               Container(
                 height: Get.height * .12,
                 width: Get.width * .85,
-                color: Colors.tealAccent,
                 child: Text(
-                  "I am a stay-at-home mom (sounds better than recently retired , don’t you think?) who loves to spend time in my kitchen",
+                  "${myUserData.profile == null ? "" : myUserData.profile.toString()}",
                   style: h3,
                 ),
               ),
@@ -112,42 +113,84 @@ class Profile extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Container(
+                  width: Get.width,
                   child: GetBuilder<ProfileController>(builder: (builder) {
-                    return ListView(
-                      children: [
+                    return
                         //List of user recipes :
+                        Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
                         profileController.currentIndex == 0
-                            ? Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                  children: profileController.userRecipes!,
+                            ? Expanded(
+                                flex: 1,
+                                child: Container(
+                                  width: Get.width * 3,
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          .02),
+                                  child: GridView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount:
+                                          profileController.userRecipes!.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return profileController
+                                            .userRecipes![index];
+                                      }),
                                 ),
                               )
                             : SizedBox(),
 
                         //List of saved recipes :
                         profileController.currentIndex == 1
-                            ? Container(
-                              height: 600,
-                              child: GridView.count(
-                                crossAxisCount: 2,
-                              children: profileController.userSaved,
-                              ),
-                            )
-                            // Padding(
-                            //     padding: EdgeInsets.all(0),
-                            //     child: Column(
-                            //       children: profileController.userSaved,
-                            //     ),
-                            //   )
+                            ? 
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                  width: Get.width * 3,
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          .02),
+                                  child: GridView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount:
+                                          profileController.userSaved!.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return profileController
+                                            .userSaved![index];
+                                      }),
+                                ),
+                              )
                             : SizedBox(),
 
                         //List of user innovation :
                         profileController.currentIndex == 2
-                            ? Padding(
-                                padding: EdgeInsets.all(0),
-                                child: Column(
-                                  children: profileController.userInnovations,
+                            ?
+                             Expanded(
+                                flex: 1,
+                                child: Container(
+                                  width: Get.width * 3,
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          .02),
+                                  child: GridView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount:
+                                          profileController.userInnovations!.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return profileController.userInnovations![index];
+                                      }),
                                 ),
                               )
                             : SizedBox(),

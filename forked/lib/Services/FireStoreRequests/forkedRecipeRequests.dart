@@ -108,6 +108,8 @@ return userForkedRecipes;
 
 
 }
+
+
 }
 
 
@@ -141,5 +143,38 @@ catch(err){
 return allRecipies;
 
 }
+
+}
+
+
+
+
+Future<List<forkedRecipe>> readOriginalForkedlRecipies({String? parentID})async{
+
+List<forkedRecipe> OriginalForkedlRecipies=[];
+try{
+  await FirebaseFirestore.instance
+    .collection('forkedRecipe').
+   where('parentID', isEqualTo: parentID ) // we need to change username to userName
+    .get() //Future<QuerySnapshot<Map<String, dynamic>>>
+    .then((QuerySnapshot querySnapshot) {
+      
+        querySnapshot.docs.forEach((doc) {// QuerySnapshot<Object?>
+       
+OriginalForkedlRecipies.add(forkedRecipe.fronJson(doc.data() as Map<String, dynamic>));  
+
+        });
+    });
+
+for (var element in OriginalForkedlRecipies) {
+Get.snackbar("title", element.title.toString());
+}
+return OriginalForkedlRecipies;
+}catch(err){
+return OriginalForkedlRecipies;
+
+
+}
+
 
 }
