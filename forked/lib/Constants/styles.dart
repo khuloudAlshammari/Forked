@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-Color BrightGreen = Color(0xffD5F6BB);
+Color BrightGreen = Color.fromARGB(255, 184, 233, 146);
 
-Color lightGreen = Color(0xffA4E473);
+Color lightGreen = Color.fromARGB(255, 129, 226, 56);
 Color darkGreen = Color(0xff004651);
 Color grey = Colors.grey;
 Color? lightGrey = Colors.grey[200];
