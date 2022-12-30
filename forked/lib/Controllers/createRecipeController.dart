@@ -130,9 +130,7 @@ int truing=1;
     stepTextField.add(Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: addFeild(
-        imageFunction: () {
-          stepImage.add("value");
-        },
+       
         textController:
             stepsTextEdittingControler[stepsTextEdittingControler.length - 1],
         deletingFunction: () {
@@ -205,9 +203,7 @@ if(steps!=[]){
     stepTextField.add(Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: addFeild(
-        imageFunction: () {
-          stepImage.add("value");
-        },
+     
         textController:
             stepsTextEdittingControler[stepsTextEdittingControler.length - 1],
         deletingFunction: () {
@@ -316,9 +312,7 @@ if(steps!=[]){
     stepTextField.add(Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: addFeild(
-        imageFunction: () {
-          stepImage.add("value");
-        },
+       
         textController:
             stepsTextEdittingControler[stepsTextEdittingControler.length - 1],
         deletingFunction: () {

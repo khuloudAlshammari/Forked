@@ -40,6 +40,5 @@ Future<String> openAndUploadPic({required String identifier})async{
 
  String imagePath= await funcGetImageFromGallery();
 String url= await uploadTofieStorage(path: imagePath, identifier: identifier);
-Get.snackbar("title", url);
 return url;
 }
