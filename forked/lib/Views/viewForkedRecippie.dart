@@ -30,9 +30,11 @@ class viewMyForkedRecipie extends StatelessWidget {
     // StepsDescription(step: 1, stepdetail: "stepdq;qwldq;wdkq;wokdpqowdkqpowdkq;dkq;odkq;wodkq;owdkq;wodkq;wodkq;dwokq;odwkq;wodkq;odkq;owkdq;odk;qowdkq;owdk;dokq;okd;qokdwq;dwlq;dkq;owdkqowdkpqowdkqpowdkpqowdkpqowdkqpowdkqpokdwqpdokqplqdnqlwndqilwdnkqwdnjkqjndkqjndkqjwndqkjwndkqjwndkqjndqkjwndkqwjndqkjwdnqkjwndkqjdnwkqjndkqjwdnowdkqpodkqpwodkqpowdkqpokdq;qowdk;qodkq;wdkq;wodketail"),
     myController.steps = [];
     myController.ingredients = [];
-    String mySteps =
+     String mySteps;
+    if( myRecipie.preperation!.length>3){ mySteps =
         myRecipie.preperation!.substring(0, myRecipie.preperation!.length - 3);
-    myController.stepsList = mySteps.split("=_=");
+    myController.stepsList = mySteps.split("=_=");}
+    
     for (var i = 0; i < myController.stepsList.length; i++) {
       myController.steps!.add(Padding(
           padding: EdgeInsets.only(left: 20),
@@ -41,7 +43,7 @@ class viewMyForkedRecipie extends StatelessWidget {
     }
 
     String myIngredients;
-    if (myRecipie.ingredients!.length > 2) {
+    if (myRecipie.ingredients!.length > 3) {
       myIngredients = myRecipie.ingredients!
           .substring(0, myRecipie.ingredients!.length - 3);
     } else {

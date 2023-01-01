@@ -6,6 +6,7 @@ import 'package:forked/Views/RegistrationNav.dart';
 import 'package:get/get.dart';
 
 import '../../Components/startingMessage.dart';
+import '../../Controllers/RegisterationNavController.dart';
 import '../../Views/BNBar.dart';
 import '../../main.dart';
 import '../FireStoreRequests/RiecipeRequests.dart';
@@ -104,6 +105,7 @@ setEmail({required String email}) {
 signOut() async {
   try {
     var user = await inctence.signOut();
+    // Get.delete<RegisterationController>();
     Get.offAll(start());
   } catch (error) {}
 }
