@@ -47,7 +47,7 @@ class ProfileController extends GetxController {
             constraints: BoxConstraints(),
             child: RecipeImage(
               imagePath:
-                  "https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Ground-Chicken-Meatballs-683x1024.png",
+                 userOriginalRecipies[i].imgPath,
               on_Tap: () {
                 Get.to(ViewRecipe(myRecipie: userOriginalRecipies[i],));
 
@@ -94,7 +94,7 @@ class ProfileController extends GetxController {
             constraints: BoxConstraints(),
             child: RecipeImage(
               imagePath:
-                  "https://insanelygoodrecipes.com/wp-content/uploads/2021/05/Ground-Chicken-Meatballs-683x1024.png",
+                innovationsRecipies[i].imgPath ,
               on_Tap: () {
                 Get.to( viewMyForkedRecipie(myRecipie: innovationsRecipies[i],));
 

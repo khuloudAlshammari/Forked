@@ -11,8 +11,8 @@ class myCamera extends StatelessWidget {
   double? height;
   Widget? icons;
   Function()? funct;
-  myCamera({super.key, this.height, this.funct, this.icons}) {
-    addI="Add Image";
+  myCamera({super.key, this.height, this.funct, this.icons, this.addI="Add Image"}) {
+   
     if (height == null) {
       height = Get.height * (200 / 852);
     }
@@ -42,9 +42,16 @@ icons=Icon(
           height: height,
           child: Center(
               child: backgroundIcon(
-            text: Text(
-              addI.toString(),
-              style: h2,
+            text: Padding(
+              padding: const EdgeInsets.symmetric( horizontal: 6),
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: Text(
+                  addI.toString(),
+                  style: h2,
+                  maxLines: 1,
+                ),
+              ),
             ),
             height: 50,
             centeredIcon: icons,

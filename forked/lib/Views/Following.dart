@@ -5,23 +5,36 @@ import 'package:forked/Components/CardRecipeCard.dart';
 import 'package:get/get.dart';
 
 class Following extends StatelessWidget {
-  const Following({super.key});
+  List<Widget> widgets=[];
+   Following({super.key,required this.widgets});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(children: [
-        Container(
-          height: Get.height * .5,
-          width: Get.width,
-          child: SmallCardRecipeCard(
-            recipeName: "pancake",
-            userName: "muhammed alaqeel",
-            ImageFunct: () {},
-           
-          ),
-        )
-      ]),
+      body: Container(
+        height: Get.height,
+        width: Get.width,
+        child:  Container(
+                                  width: Get.width ,
+                                  padding: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          .02),
+                                  child: GridView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount:
+                                      
+                                          widgets.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                            childAspectRatio: 1,
+                                        crossAxisCount: 1,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        return 
+                                            widgets[index];
+                                      }),
+                                ),
+      ),
     );
   }
 }

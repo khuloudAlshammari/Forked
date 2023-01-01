@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-Color BrightGreen = Color.fromARGB(255, 184, 233, 146);
+Color BrightGreen = Color(0xffA4E473);
+Color headerA = Color(0xff69b984);
+// Color headerA = Color(0xff95bf9d);
+
 
 Color lightGreen = Color.fromARGB(255, 129, 226, 56);
 Color darkGreen = Color(0xff004651);
@@ -22,7 +25,7 @@ TextStyle h2 = TextStyle(
     fontWeight: FontWeight.w700);
 
 TextStyle htext = TextStyle(
-    color: lightGreen,
+    color: headerA,
     fontSize: 20,
     fontFamily: "Inter",
     fontWeight: FontWeight.w700);
@@ -48,7 +51,7 @@ TextStyle underline = TextStyle(
     decoration: TextDecoration.underline);
 // يمثل الستايل الي تحتة خط
 TextStyle underlineGreenText = TextStyle(
-    color: lightGreen,
+    color: headerA,
     fontSize: 12,
     fontFamily: "Inter",
     fontWeight: FontWeight.w600,
@@ -66,3 +69,33 @@ TextStyle UserDisplayLight = TextStyle(
     fontSize: 13,
     fontFamily: "Inter",
     fontWeight: FontWeight.w400);
+
+
+TextStyle stepss = TextStyle(
+    color: darkGreen,
+    fontSize: 18,
+    fontFamily: "Inter",
+    fontWeight: FontWeight.w600);
+
+
+
+TextStyle stepH = TextStyle(
+    color: headerA,
+    fontSize: 20,
+    fontFamily: "Inter",
+    fontWeight: FontWeight.w700);
+
+
+
+TextStyle stepLarge = TextStyle(
+    color: headerA,
+    fontSize: 30,
+    fontFamily: "Inter",
+    fontWeight: FontWeight.w700);
+
+    TextStyle h4TransParent = TextStyle(
+    overflow: TextOverflow.clip,
+    color: Color.fromARGB(146, 0, 70, 81),
+    fontSize: 13,
+    fontFamily: "Inter",
+    fontWeight: FontWeight.w600);

@@ -56,7 +56,7 @@ class viewRecipeController extends GetxController {
                   parentID: parentID,
               ))!
                   .then((value) => Get.delete<createRecipeController>()),
-          child: myCamera()));
+          child: myCamera(addI: "Add Innovation",icons: Image.asset("images/pot.png",height:30, width: 30,),)));
     }
     for (var i = 0; i < innovationsRecipies.length; i++) {
       if (i == 2) {
@@ -71,7 +71,7 @@ class viewRecipeController extends GetxController {
                   parentID: parentID,
               ))!
                   .then((value) => Get.delete<createRecipeController>()),
-            child: myCamera()));
+            child: myCamera(addI: "Add Innovation",icons: Image.asset("images/pot.png",height:30, width: 30,))));
       }
       forksOfRecipie?.add(
         ConstrainedBox(
@@ -79,7 +79,7 @@ class viewRecipeController extends GetxController {
             child: RecipeImage(
               imagePath:
                   "${innovationsRecipies[i].imgPath}",
-              on_Tap: () {   Get.to(viewMyForkedRecipie(myRecipie: innovationsRecipies[i],))!.then((value) => Get.delete<viewRecipeController>());
+              on_Tap: () {   Get.off(viewMyForkedRecipie(myRecipie: innovationsRecipies[i],));
 },
             )),
       );
@@ -97,7 +97,7 @@ class viewRecipeController extends GetxController {
                 parentID: id,
               ))!
                   .then((value) => Get.delete<createRecipeController>()),
-          child: myCamera()));
+          child: myCamera(addI: "Add Innovation",icons: Image.asset("images/pot.png",height:30, width: 30,))));
     }
 
     return forksOfRecipie;

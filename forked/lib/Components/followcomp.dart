@@ -7,8 +7,11 @@ import 'package:get/get.dart';
 import '../Constants/styles.dart';
 
 class FollowComp extends StatelessWidget {
-  const FollowComp(
-      {super.key, required this.followercount, required this.followingcount});
+Function() func1;
+Function() func2;
+
+   FollowComp(
+      {super.key, required this.followercount, required this.followingcount,required  this.func1,required this.func2});
   final int? followercount;
   final int? followingcount;
 
@@ -25,9 +28,12 @@ class FollowComp extends StatelessWidget {
               followingcount.toString(),
               style: h2,
             ),
-            Text(
-              "Following",
-              style: h2,
+            InkWell(
+              onTap: func1,
+              child: Text(
+                "Following",
+                style: h2,
+              ),
             )
           ],
         ),
@@ -48,7 +54,9 @@ class FollowComp extends StatelessWidget {
               followercount.toString(),
               style: h2,
             ),
-            Text("Followers", style: h2)
+            InkWell(
+              onTap: func2,
+              child: Text("Followers", style: h2))
           ],
         )
       ],

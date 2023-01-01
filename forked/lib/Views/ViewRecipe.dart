@@ -15,7 +15,7 @@ class ViewRecipe extends StatelessWidget {
   
 originalRecipe myRecipie;
   viewRecipeController myController = Get.put(viewRecipeController());
-
+ List<Widget> forks=[];
   ViewRecipe({super.key,required this.myRecipie}){
         myController.forks=[];
 myController.id=myRecipie.userID;
@@ -30,22 +30,31 @@ myController.ooCon();
     // StepsDescription(step: 1, stepdetail: "stepdq;qwldq;wdkq;wokdpqowdkqpowdkq;dkq;odkq;wodkq;owdkq;wodkq;wodkq;dwokq;odwkq;wodkq;odkq;owkdq;odk;qowdkq;owdk;dokq;okd;qokdwq;dwlq;dkq;owdkqowdkpqowdkqpowdkpqowdkpqowdkqpowdkqpokdwqpdokqplqdnqlwndqilwdnkqwdnjkqjndkqjndkqjwndqkjwndkqjwndkqjndqkjwndkqwjndqkjwdnqkjwndkqjdnwkqjndkqjwdnowdkqpodkqpwodkqpowdkqpokdq;qowdk;qodkq;wdkq;wodketail"),
  myController.steps=[];
  myController.ingredients=[];
-    String mySteps= myRecipie.preperation!.substring(0,myRecipie.preperation!.length-3);
-  myController.stepsList=mySteps.split("=_=");
+ String mySteps;
+ if(myRecipie.preperation!.length>3){
+     mySteps= myRecipie.preperation!.substring(0,myRecipie.preperation!.length-3);
+  myController.stepsList=mySteps.split("=_=");}
 for (var i=0; i<myController.stepsList.length;i++) {
- myController.steps!.add(StepsDescription(step: i+1, stepdetail: myController.stepsList[i]));
+ myController.steps!.add(Padding(
+   padding: EdgeInsets.only(left:20 ),
+   child: StepsDescription(step: i+1, stepdetail: myController.stepsList[i])));
 
 }
+ 
+ String myIngredients;
 
-
-
-   String myIngredients= myRecipie.ingredients!.substring(0,myRecipie.ingredients!.length-3);
-  myController.ingredientList=myIngredients.split("=_=");
+if(myRecipie.ingredients!.length>3){
+    myIngredients= myRecipie.ingredients!.substring(0,myRecipie.ingredients!.length-3);
+  myController.ingredientList=myIngredients.split("=_=");}
 for (var i=0; i<myController.ingredientList.length;i++) {
 myController.ingredients!.add( Padding(
-     padding: const EdgeInsets.symmetric(vertical: 15),
-     child: Text("• ${myController.ingredientList[i]}", style: h4,),
-   ),);
+  padding: EdgeInsets.only(left: 20),
+  child: Row(
+    children: [
+      Text("• ", style:stepLarge ,),
+      Text("${myController.ingredientList[i]}", style: stepss,),
+    ],
+  )),);
    
 }
 
@@ -123,14 +132,20 @@ myController.ingredients!.add( Padding(
 
                         //cook name :
                        
-
+  
                         //Derived :
                         Container(
                           margin: EdgeInsets.only(bottom: 10),
                           height: 25,
                           width: Get.width * .9,
                           //color: Colors.pink,
-                          child: Text(myRecipie.username.toString()),
+                          child: Text("By ${myRecipie.username.toString()}",
+                      style:    TextStyle(
+                                  overflow: TextOverflow.clip,
+                                  color: Color.fromARGB(255, 0, 70, 81),
+                                  fontSize: 15,
+                                  fontFamily: "Inter",
+                                  fontWeight: FontWeight.w500)),
                         ),
 
                         //info:
@@ -160,8 +175,9 @@ myController.ingredients!.add( Padding(
                             f2: () {
                               myController.setIndex(index: 1);
                             },
-                            f3: () {
+                            f3: ()async {
                               myController.setIndex(index: 2);
+                              await myController.ooCon();
                             },
                           );
                         }),
@@ -222,6 +238,7 @@ myController.ingredients!.add( Padding(
                 child: Container(
                   width: Get.width,
                   child: GetBuilder<viewRecipeController>(builder: (builder) {
+                                        forks= myController.forks!;
 
                     return
                         //List of user recipes :

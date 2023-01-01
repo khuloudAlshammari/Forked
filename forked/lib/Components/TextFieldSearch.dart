@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:forked/Constants/styles.dart';
+import 'package:forked/Controllers/searchController.dart';
+import 'package:forked/Views/search.dart';
+import 'package:get/get.dart';
 
 class TextFieldSearch extends StatelessWidget {
   const TextFieldSearch({super.key, this.hint, this.iconImage});
@@ -10,7 +13,12 @@ class TextFieldSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return TextField(
+        onSubmitted: (value){
+      //value is entered text after ENTER press
+      //you can also call any function here or make setState() to assign value to other variable
+      Get.to(searchPage(searchKey: value,))!.then((value) => Get.delete<searchController>());
+    },
                       cursorColor: grey,
                       decoration: InputDecoration(
                         prefixIcon: Image.asset(iconImage),

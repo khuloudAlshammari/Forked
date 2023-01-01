@@ -64,7 +64,7 @@ class UserDisplay extends StatelessWidget {
                               height: Get.width * (99 / 393) * (79 / 99),
                               width: Get.width * (99 / 393) * (79 / 99),
                               color: Colors.white,
-                              child: Image.asset(
+                              child: Image.network(
                                 "$image",
                                 fit: BoxFit.fill,
                               ))),

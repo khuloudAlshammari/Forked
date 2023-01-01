@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:forked/Components/CardRecipeCard.dart';
 import 'package:forked/Components/userDisplay.dart';
+import 'package:forked/Controllers/OthersProfileController.dart';
 import 'package:forked/Models/User.dart';
 import 'package:forked/Models/following.dart';
 import 'package:forked/Models/forkedRecipe.dart';
@@ -62,6 +63,8 @@ class ListsOfHomeController extends GetxController {
               recipeName: explorrer[i].title!,
               recipeImage: explorrer[i].imgPath,
               userName: explorrer[i].username,
+                            userAvatar: explorrer[i].userProfileImage,
+
               ImageFunct: () {
                 Get.to(ViewRecipe(myRecipie: explorrer[i]));
               },
@@ -88,6 +91,8 @@ class ListsOfHomeController extends GetxController {
               recipeName: forkedExplorer[i].title!,
               recipeImage: forkedExplorer[i].imgPath,
               userName: forkedExplorer[i].username,
+                            userAvatar: forkedExplorer[i].userProfileImage,
+
               ImageFunct: () {
                 Get.to(viewMyForkedRecipie(myRecipie: forkedExplorer[i],));
 
@@ -118,6 +123,7 @@ class ListsOfHomeController extends GetxController {
           child: UserDisplay(
             folowers: mostPopular[i].followersNumber!,
             userName: mostPopular[i].username!,
+            image: mostPopular[i].userProfileImage,
             funct: () async{
               List<following> userFollowingCount = await readUsersFollowing(userID: mostPopular[i].userID.toString());
      List<following> userFollowersCount =
@@ -126,7 +132,7 @@ class ListsOfHomeController extends GetxController {
                 listOfFollowersCount:userFollowersCount ,
                 listOfFollowingCount: userFollowingCount,
                 otherUser: mostPopular[i], 
-              ));
+              ))!.then((value) => Get.delete<OthersProfileController>());
             },
           ),
         ));
@@ -139,9 +145,9 @@ class ListsOfHomeController extends GetxController {
 
   Future<List<Widget>?> addInFollowingList(
       {List<Widget>? followingList, String? userId}) async {
+
     List<following> UsersFollowing = await readUsersFollowing(userID: userId);
     List<String> followingID = [];
-
     List<originalRecipe> originals = [];
     List<forkedRecipe> forks = [];
 
@@ -157,6 +163,7 @@ class ListsOfHomeController extends GetxController {
     originals = await FollowingRecipies(followingIDs: followingID);
     forks = await FollowingForkedRecipies(followingIDs: followingID);
 
+
     for (var i = 0; i < 10; i++) {
       if (i % 2 == 0 && i < originals.length) {
         //Get.snackbar("ortiginal", originals[i].title.toString());
@@ -168,7 +175,9 @@ class ListsOfHomeController extends GetxController {
               recipeName: originals[i].title!,
               recipeImage: originals[i].imgPath,
               userName: originals[i].username,
-              ImageFunct: () {},
+              userAvatar: originals[i].userProfileImage,
+              ImageFunct: () {                Get.to(ViewRecipe(myRecipie: originals[i]));
+},
               likeFunct: () {},
               accontFunct: () {},
             ),
@@ -190,9 +199,11 @@ class ListsOfHomeController extends GetxController {
                 ),
             child: SmallCardRecipeCard(
               recipeName: forks[i].title!,
-              recipeImage: forks[i].title!,
+              recipeImage: forks[i].imgPath!,
               userName: forks[i].username,
-              ImageFunct: () {},
+                            userAvatar: forks[i].userProfileImage,
+
+              ImageFunct: () {    Get.to(viewMyForkedRecipie(myRecipie: forks[i],));},
               likeFunct: () {},
               accontFunct: () {},
             ),
@@ -242,7 +253,9 @@ class ListsOfHomeController extends GetxController {
               recipeName: explorrer[i].title!,
               recipeImage: explorrer[i].imgPath,
               userName: explorrer[i].username,
-              ImageFunct: () {},
+                            userAvatar: explorrer[i].userProfileImage,
+
+              ImageFunct: () {    Get.to(ViewRecipe(myRecipie: explorrer[i]));},
               likeFunct: () {},
               accontFunct: () {},
             ),
@@ -266,7 +279,9 @@ class ListsOfHomeController extends GetxController {
               recipeName: forkedExplorer[i].title!,
               recipeImage: forkedExplorer[i].imgPath,
               userName: forkedExplorer[i].username,
-              ImageFunct: () {},
+                            userAvatar: forkedExplorer[i].userProfileImage,
+
+              ImageFunct: () {    Get.to(viewMyForkedRecipie(myRecipie: forkedExplorer[i],));},
               likeFunct: () {},
               accontFunct: () {},
             ),

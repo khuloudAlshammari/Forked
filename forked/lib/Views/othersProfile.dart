@@ -10,6 +10,7 @@ import 'package:forked/Models/User.dart';
 import 'package:forked/Models/following.dart';
 import 'package:forked/Services/FireStoreRequests/UserRequests.dart';
 import 'package:forked/Services/FireStoreRequests/followingRequests.dart';
+import 'package:forked/Views/viewFollowing.dart';
 import 'package:forked/main.dart';
 import 'package:get/get.dart';
 
@@ -66,21 +67,19 @@ class othersProfile extends StatelessWidget {
           child: Column(
             children: [
               //avatar :
-              FittedBox(
-                  fit: BoxFit.contain,
-                  child: Container(
-                    height: 100,
-                    width: 100,
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: FittedBox(
-                      child: Image.network(
-                          "https://freesvg.org/img/abstract-user-flat-4.png"),
-                      fit: BoxFit.fill,
-                    ),
-                  )),
+                Center(
+            child: Container(
+              height: 110,
+              width: 110,
+              decoration: BoxDecoration(
+                  //color: Colors.amber,
+                  borderRadius: BorderRadius.circular(100),
+                  image: DecorationImage(
+                      image: NetworkImage(otherUser.userProfileImage!),
+                      fit: BoxFit.fill)),
+            ),
+          ),
+
 
               //user name :
               Container(
@@ -126,6 +125,13 @@ class othersProfile extends StatelessWidget {
                 child: FollowComp(
                   followercount: listOfFollowersCount.length, //
                   followingcount: listOfFollowingCount.length, //
+                    func1: () {
+                      Get.to(viewFollowers(followers: listOfFollowingCount,i: 1,));
+                    },
+                    func2: () {
+                 Get.to(viewFollowers(followers: listOfFollowersCount));
+
+                    },
                 ),
               ),
               SizedBox(
@@ -200,7 +206,7 @@ class othersProfile extends StatelessWidget {
                             : SizedBox(),
 
                         //List of saved recipes ://here
-                        OthersProfileCon.currentIndex == 1
+                        OthersProfileCon.currentIndex == 2
                             ?
                             Expanded(
                                 flex: 1,
@@ -225,7 +231,7 @@ class othersProfile extends StatelessWidget {
                             : SizedBox(),
 
                         //List of user innovation :
-                        OthersProfileCon.currentIndex == 2
+                        OthersProfileCon.currentIndex == 1
                             ?
                             Expanded(
                                 flex: 1,

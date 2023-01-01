@@ -7,6 +7,7 @@ import 'package:forked/Views/Home.dart';
 import 'package:forked/Views/Profile.dart';
 import 'package:get/get.dart';
 
+import '../Controllers/ProfileController.dart';
 import '../Controllers/createRecipeController.dart';
 
 class BNBart extends StatefulWidget {
@@ -42,8 +43,11 @@ class _BNBartState extends State<BNBart> {
               // if(click==0 || click==2){
               Get.delete<createRecipeController>();
               Pages[1]=createRecipe();
-              
-              // }
+                if(value==2){
+                  Get.delete<ProfileController>();
+
+                              Pages[2]=Profile();
+              }
               click = value;
 
             });

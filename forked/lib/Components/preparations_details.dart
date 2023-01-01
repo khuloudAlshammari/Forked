@@ -19,14 +19,14 @@ class StepsDescription extends StatelessWidget {
 
         Text(
            "step ${step.toString()}",
-           style: h2,
+           style: stepH,
          ),
 
         SizedBox(height: 20,),
         //details
         Text(
           stepdetail!,
-          style: h4,
+          style: stepss,
         ),
                 SizedBox(height: 30,),
 

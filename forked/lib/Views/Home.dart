@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:forked/Components/TextFieldCom.dart';
 import 'package:forked/Constants/styles.dart';
 import 'package:forked/Controllers/ListsOfHomeController.dart';
+import 'package:forked/Views/Following.dart';
 import 'package:get/get.dart';
 
 import '../Components/TextFieldSearch.dart';
@@ -137,7 +138,7 @@ class Home extends StatelessWidget {
                   child: Titles(
                     text1: "Following",
                     text2: "",
-                    funct: () {},
+                    funct: () { Get.to(Following(widgets: listController.followingList));},
                   ),
                 ),
 

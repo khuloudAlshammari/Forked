@@ -296,7 +296,7 @@ List<String> usersNames=[];
 
 
 for (var element in userList) {
-  usersNames.add(element.username!);
+  usersNames.add(element.username!.toLowerCase());
 }
 
 
@@ -305,7 +305,7 @@ for (var element in userList) {
     
          
 for(var i=0;i<usersNames.length;i++){
-  if(usersNames[i].contains(searchKey!)){
+  if(usersNames[i].contains(searchKey!.toLowerCase())){
     finalUsers.add(userList[i]);
   }
 }
@@ -344,7 +344,7 @@ for (var element in finalUsers) {
 List<String> originalNames=[];
 
 for (var element in originalRecipes) {
-  originalNames.add(element.title!);
+  originalNames.add(element.title!.toLowerCase());
 }
 
 List<originalRecipe> finalOriginal=[];
@@ -353,7 +353,7 @@ List<originalRecipe> finalOriginal=[];
 
 
 for(var i=0;i<originalNames.length;i++){
-  if(originalNames[i].contains(searchKey!)){
+  if(originalNames[i].contains(searchKey!.toLowerCase())){
     finalOriginal.add(originalRecipes[i]);
   }
 }
@@ -390,7 +390,7 @@ List<String> forkedNames=[];
 
 
 for (var element in ForkedRecipe) {
-  forkedNames.add(element.title!);
+  forkedNames.add(element.title!.toLowerCase());
 }
 
 
@@ -399,7 +399,7 @@ List<forkedRecipe>  finalForked=[];
 
 
 for(var i=0;i<forkedNames.length;i++){
-  if(forkedNames[i].contains(searchKey!)){
+  if(forkedNames[i].contains(searchKey!.toLowerCase())){
     print("entered");
     finalForked.add(ForkedRecipe[i]);
   }
@@ -413,4 +413,56 @@ for (var element in finalForked) {
   //Get.snackbar("forks title", element.title!);
 }
   return finalForked;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Future<List<user>> readUsers({List<String>? followingIDs}) async{
+  // we will use the list of a ll the users that we followe to aquire their recipies
+
+  // by using the (in) ley word in the query
+  List<user> users=[];
+
+  try{
+
+ await FirebaseFirestore.instance
+    .collection('users').//++
+   where("userID",  whereIn : followingIDs ) // we need to change username to userName
+    .get() //Future<QuerySnapshot<Map<String, dynamic>>>
+    .then((QuerySnapshot querySnapshot) {
+      
+        querySnapshot.docs.forEach((doc) {// QuerySnapshot<Object?>
+       
+users.add(user.fronJson(doc.data() as Map<String, dynamic>));  
+        });
+    });
+
+    // for (var element in users) {
+    //   //Get.snackbar("title", element.title.toString());
+    // }
+    return users;
+    }catch(err){
+return [];
+    }
+
+  //for testing we will limit the floowingIDs to only 10 users
+
+  //recipe title, image, likes, profileIMG, user name, useID, recipeID, and parentID for forked;
+
+// when creating the forked Widget make sure to pass an atribute (parentID) that tell wether the recipe is forked or not
+
 }

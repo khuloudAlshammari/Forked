@@ -57,7 +57,7 @@ class SmallCardRecipeCard extends StatelessWidget {
                         child: Material(
                           child: InkWell(
                               onTap: ImageFunct,
-                              child: Image.network(recipeImage!)),
+                              child:recipeImage!.length>30? Image.network(recipeImage!):SizedBox()),
                         ),
                         fit: BoxFit.fill,
                       ),
@@ -136,7 +136,7 @@ class SmallCardRecipeCard extends StatelessWidget {
                                                 BorderRadius.circular(15),
                                           ),
                                           child: FittedBox(
-                                            child: Image.asset(userAvatar),
+                                            child: Image.network(userAvatar),
                                             fit: BoxFit.fill,
                                           ),
                                         )),

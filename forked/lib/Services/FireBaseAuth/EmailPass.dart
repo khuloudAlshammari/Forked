@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:forked/Models/User.dart';
 import 'package:forked/Views/RegistrationNav.dart';
 import 'package:get/get.dart';
 
@@ -41,11 +42,17 @@ createAccount(
       print(user.user?.uid);
 
       if (user.user?.uid != null) {
-        await setUser(email: email, id: user.user!.uid, username: username);
-        Get.off(BNBart());
+        await setUser(email: email, id: user.user!.uid, username: username,);
+       myUserData.username=username;
+      myUserData.email=email;
+             myUserData.userID=user.user!.uid;
+        
+
+
+        Get.offAll(BNBart());
 
         if (user.user?.uid != null) {
-          Get.to(BNBart());
+          Get.offAll(BNBart());
         }
       }
     }
@@ -61,19 +68,20 @@ loginWithPass({required String email, required String password}) async {
     if (myUser.user?.uid != null) {
       try {
         myUserData = await readUserData(userID: myUser.user?.uid);
-        userOriginalRecipies =
-            await readUsersOriginalRecipies(userID: myUser.user?.uid);
-        userForkedRecipeRecipies =
-            await readUsersForkedlRecipies(userID: myUser.user?.uid);
+        // userOriginalRecipies =
+        //     await readUsersOriginalRecipies(userID: myUser.user?.uid);
+        // userForkedRecipeRecipies =
+        //     await readUsersForkedlRecipies(userID: myUser.user?.uid);
         usersLikedRecipies =
             await readUsersLikedRecipies(userID: myUser.user?.uid);
-        userSavedRecipies =
-            await readUserSavedRecipies(userID: myUser.user?.uid);
+        // userSavedRecipies =
+        //     await readUserSavedRecipies(userID: myUser.user?.uid);
         userFollowing = await readUsersFollowing(userID: myUser.user?.uid);
         print(userFollowing.toString());
         userFollowers = await readUsersFollowers(userID: myUser.user?.uid);
+
         //Get.snackbar("title", "snack.username.toString()");
-        Get.to(BNBart());
+        Get.offAll(BNBart());
       } catch (err) {
        // Get.snackbar("title", "LKLLKLKLKLLK");
       }

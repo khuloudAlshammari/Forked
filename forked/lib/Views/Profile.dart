@@ -7,6 +7,7 @@ import 'package:forked/Components/followcomp.dart';
 import 'package:forked/Components/picker.dart';
 import 'package:forked/Constants/styles.dart';
 import 'package:forked/Controllers/ProfileController.dart';
+import 'package:forked/Views/viewFollowing.dart';
 import 'package:forked/main.dart';
 import 'package:get/get.dart';
 import '../Components/AppBar.dart';
@@ -38,21 +39,18 @@ class Profile extends StatelessWidget {
                   height: 10,
                 ),
                 //avatar :
-                FittedBox(
-                    fit: BoxFit.contain,
-                    child: Container(
-                      height: 100,
-                      width: 100,
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: FittedBox(
-                        child: Image.network(
-                            "https://freesvg.org/img/abstract-user-flat-4.png"),
-                        fit: BoxFit.fill,
-                      ),
-                    )),
+                Center(
+            child: Container(
+              height: 110,
+              width: 110,
+              decoration: BoxDecoration(
+                  //color: Colors.amber,
+                  borderRadius: BorderRadius.circular(100),
+                  image: DecorationImage(
+                      image: NetworkImage(myUserData.userProfileImage!),
+                      fit: BoxFit.fill)),
+            ),
+          ),
 
                 //user name :
                 Container(
@@ -78,6 +76,13 @@ class Profile extends StatelessWidget {
                   child: FollowComp(
                     followercount: userFollowers.length,
                     followingcount: userFollowing.length,
+                    func1: () {
+                      Get.to(viewFollowers(followers: userFollowing,i: 1,));
+                    },
+                    func2: () {
+                 Get.to(viewFollowers(followers: userFollowers));
+
+                    },
                   ),
                 ),
                 SizedBox(

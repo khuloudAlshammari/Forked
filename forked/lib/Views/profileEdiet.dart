@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:forked/Components/AppBar.dart';
 import 'package:forked/Components/CustomButton.dart';
@@ -8,11 +10,13 @@ import 'package:forked/Views/Profile.dart';
 import 'package:forked/main.dart';
 import 'package:get/get.dart';
 
+import '../Services/Image Services/ImagePicker.dart';
+
 class ProfilEdiet extends StatelessWidget {
   ProfilEdiet({super.key});
   TextEditingController textController =
       TextEditingController(text: myUserData.profile.toString());
-
+String? imagePath=myUserData.userProfileImage;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,12 +50,16 @@ class ProfilEdiet extends StatelessWidget {
                         docoment: "${myUserData.userID}",
                         fieldKey: "profile",
                         newValue: textController.text.toString());
+                        myUserData.profile=textController.text.toString();
+                    print(imagePath.toString());
+
                     updateData(
                         collection: "user",
                         docoment: "${myUserData.userID}",
-                        fieldKey: "profileImage",
-                        newValue:
-                            "https://freesvg.org/img/abstract-user-flat-4.png");
+                        fieldKey: "userProfileImage",
+                        newValue:imagePath.toString());
+                        myUserData.userProfileImage=imagePath.toString();
+
 
                     //Get.to(() => Profile(), arguments: myUserData.profile);
                     Get.back();
@@ -71,7 +79,7 @@ class ProfilEdiet extends StatelessWidget {
                   //color: Colors.amber,
                   borderRadius: BorderRadius.circular(100),
                   image: DecorationImage(
-                      image: NetworkImage(myUserData.profileImage!),
+                      image: NetworkImage(myUserData.userProfileImage!),
                       fit: BoxFit.fill)),
             ),
           ),
@@ -85,9 +93,15 @@ class ProfilEdiet extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
               ),
-              child: myButton(
-                text: 'Change Profile Photo',
-                backGroundColor: lightGreen,
+              child: InkWell(
+                onTap: ()async{
+         imagePath=await  openAndUploadPic(identifier: "${myUserData.userID}");
+
+                },
+                child: myButton(
+                  text: 'Change Profile Photo',
+                  backGroundColor: lightGreen,
+                ),
               )),
 
           SizedBox(

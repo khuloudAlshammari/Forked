@@ -24,7 +24,10 @@ setUser({required String email, required String id, String? username}) async {
     await db
         .collection('users')
         .doc(id)
-        .set({"userID": id, "email": email, "username": username});
+        .set({"userID": id, "email": email, "username": username,"followersNumber":0,
+        "userProfileImage":"https://freesvg.org/img/abstract-user-flat-4.png",
+        
+        });
   } catch (err) {
     //Get.snackbar("title", "error inside SETUSER");
   }

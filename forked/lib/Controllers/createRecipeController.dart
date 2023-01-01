@@ -395,7 +395,7 @@ print(myUserData.userID);
      
                       userID: myUserData.userID,
                       imgPath: image,
-                      userProfileImage: myUserData.profileImage,
+                      userProfileImage: myUserData.userProfileImage,
                       username: myUserData.username,
                       ingredients: ingredients,
                       preperation: steps,
@@ -465,7 +465,7 @@ print(myUserData.userID);
                       parentName: parentName,
                       userID: myUserData.userID,
                       imgPath: image,
-                      userProfileImage: myUserData.profileImage,
+                      userProfileImage: myUserData.userProfileImage,
                       username: myUserData.username,
                       ingredients: ingredients,
                       preperation: steps,

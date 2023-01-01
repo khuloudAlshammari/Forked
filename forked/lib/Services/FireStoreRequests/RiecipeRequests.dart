@@ -19,7 +19,9 @@ setRecipe(
   //     User(userID: id, email: email);
   try {
     final docRef = db.collection('recipes').doc();
-
+if(imgPath!.length<30){
+  imgPath="https://firebasestorage.googleapis.com/v0/b/forked-8c34b.appspot.com/o/AllImages%2F0.jpg?alt=media&token=6ef8c3e9-9910-4549-8ac3-a513d856bc21";
+}
     await docRef.set({
       "userID": userID,
       "username": username,

@@ -8,7 +8,7 @@ class user {
   String? username;
   String? email;
   String? profile;
-  String? profileImage;
+  String? userProfileImage;
   int? followingNumber;
   int? followersNumber;
 
@@ -18,7 +18,7 @@ class user {
       this.username,
       this.email,
       this.profile,
-      this.profileImage,
+      this.userProfileImage,
       this.followingNumber,
       this.followersNumber});
 
@@ -28,7 +28,7 @@ class user {
       username: json['username'],
       email: json['email'],
       profile: json['profile'],
-      profileImage: json['profileImage'],
+      userProfileImage: json['userProfileImage'],
        followingNumber: json['followingNumber'],
         followersNumber: json['followersNumber'],
     );
