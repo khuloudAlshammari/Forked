@@ -13,10 +13,9 @@ import 'Models/likedRecipe.dart';
 import 'firebase_options.dart';
 
 user myUserData = user();
-// List<originalRecipe> userOriginalRecipies = [];
-// List<forkedRecipe> userForkedRecipeRecipies = [];
+
 List<likedRecipe> usersLikedRecipies = [];
-// List<savedRecipe> userSavedRecipies = [];
+
 List<following> userFollowing = [];
 List<following> userFollowers = [];
 main() async {
@@ -47,26 +46,7 @@ class MyApp extends StatelessWidget {
       initialRoute: NamedRoute.StratingPage,
        getPages: appRoutes,
 
-      // home: Profile(),
-
-//  home: createRecipe(
-
-// steps: [
-
-//   SizedBox(),
-//     SizedBox(),
-
-//   SizedBox(),
-
-// ],
-// ingredients: [
-
-//   SizedBox(),
-
-//   SizedBox(),
-
-// ],
-
+ 
     );
   }
 }
