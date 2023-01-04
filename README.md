@@ -10,8 +10,7 @@ Food blogger ,Home Cook ,Anyone loves to eat...
 . You can follow your favorite chefs.
 . Like, share and read any recipe.
 # used Libraries
-'*
- get: ^4.6.5
+ ` get: ^4.6.5
   dotted_border: ^2.0.0+3
   http: ^0.13.5
   like_button: ^2.0.5
@@ -20,9 +19,7 @@ Food blogger ,Home Cook ,Anyone loves to eat...
   firebase_auth: ^4.2.3
   cloud_firestore: ^4.3.0
   image_picker: ^0.8.6
-  flutter_speed_dial: ^6.2.0
-
-*'
+  flutter_speed_dial: ^6.2.0`
 
 # This video summarizes som of the features of the application
    
