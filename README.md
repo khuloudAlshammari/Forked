@@ -10,11 +10,17 @@ Food blogger ,Home Cook ,Anyone loves to eat...
 . You can follow your favorite chefs.
 . Like, share and read any recipe.
 
-#
+# This video summarizes som of the features of the application
+   
+    
+
+
+    
+   
 
 
 
 
-#
+
 
  
