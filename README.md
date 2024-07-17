@@ -19,7 +19,7 @@ An app that targets the cooking community and it allows its users to view and cr
 ###### add users
 
 
-# Built using :  :
+# Built using :
 ` Figma `
 ` Dart `
 ` Flutter`
