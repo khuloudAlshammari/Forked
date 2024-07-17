@@ -1,6 +1,6 @@
 # Forked
 An app that targets the cooking community and it allows its users to view and create their own unique recipes
-## Adapted from Github application
+### Adapted from Github application
 
 ## OurAppTargets:
 ###### Food blogger 
@@ -31,7 +31,7 @@ An app that targets the cooking community and it allows its users to view and cr
 ![Accounting Service Website in Black and White Photographic Style copy](https://github.com/user-attachments/assets/0dd38a8b-e374-41cb-a448-22b048bd71d5)
 
 
-# used Libraries
+# used Libraries :
  ```
   get: ^4.6.5
   dotted_border: ^2.0.0+3
